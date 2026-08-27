@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Занятие №1 — Олимпиадный практикум</title>
+    <title>Занятие №1 — Можно или нельзя? — Олимпиадный практикум</title>
     
     <!-- Шрифты -->
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@400;500;600;700&family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
@@ -13,7 +13,7 @@
     
     <style>
         /* ============================================================
-           ДИЗАЙН-СИСТЕМА (ТА ЖЕ)
+           ДИЗАЙН-СИСТЕМА
            ============================================================ */
         :root {
             --primary: #8D0B0D;
@@ -100,6 +100,25 @@
             transform: translateY(-3px);
         }
 
+        .btn-small {
+            background: var(--primary-light);
+            color: #000;
+            border: none;
+            padding: 0.4rem 1.2rem;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: 0.2s;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+        .btn-small:hover {
+            background: #f5b2cc;
+        }
+
         .badge {
             display: inline-block;
             padding: 0.2rem 0.8rem;
@@ -111,6 +130,39 @@
         .badge-pink { background: var(--primary-light); color: #000; }
         .badge-green { background: var(--success); color: #fff; }
         .badge-gray { background: var(--border-color); color: var(--text-secondary); }
+
+        /* ---------- КНОПКА ПОКАЗАТЬ ОТВЕТ ---------- */
+        .answer-toggle {
+            margin-top: 0.8rem;
+        }
+        .answer-hidden {
+            display: none;
+            margin-top: 0.8rem;
+            padding: 1rem;
+            background: #f9f6f4;
+            border-radius: 16px;
+            border-left: 4px solid var(--primary);
+        }
+        .answer-hidden.show {
+            display: block;
+        }
+
+        /* ---------- РАЗДЕЛИТЕЛЬ ---------- */
+        .divider {
+            border: none;
+            border-top: 2px dashed var(--border-color);
+            margin: 2rem 0;
+        }
+
+        /* ---------- ДОМАШНЕЕ ЗАДАНИЕ ---------- */
+        .homework-title {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 800;
+            text-align: center;
+            font-size: 1.8rem;
+            color: var(--primary);
+            margin: 2rem 0 1.5rem;
+        }
 
         /* ============================================================
            НАВИГАЦИЯ
@@ -206,7 +258,7 @@
         }
 
         .container {
-            max-width: 1200px;
+            max-width: 900px;
             margin: 0 auto;
             padding: 0 1.5rem 2rem;
         }
@@ -242,39 +294,95 @@
             transform: translateX(-4px);
         }
 
-        .detail-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1.5rem;
+        .task-block {
+            margin-bottom: 2rem;
         }
-        .detail-card {
-            padding: 1.5rem;
-        }
-        .detail-card h3 {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.3rem;
-            margin-bottom: 0.8rem;
-            display: flex;
-            align-items: center;
-            gap: 0.6rem;
-        }
-        .detail-card ul {
-            list-style: none;
-            padding: 0;
-        }
-        .detail-card ul li {
-            padding: 0.6rem 0;
-            border-bottom: 1px solid var(--border-color);
-            display: flex;
-            align-items: center;
-            gap: 0.6rem;
-        }
-        .detail-card ul li:last-child {
-            border-bottom: none;
-        }
-        .detail-card ul li .item-icon {
-            width: 28px;
+        .task-block .task-number {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 800;
             color: var(--primary);
+            font-size: 1.2rem;
+        }
+        .task-block .task-text {
+            font-size: 1.05rem;
+            line-height: 1.7;
+            margin: 0.5rem 0;
+        }
+        .task-block .task-text strong {
+            color: var(--primary);
+        }
+        .task-block .task-image {
+            max-width: 100%;
+            border-radius: 16px;
+            border: 1px solid var(--border-color);
+            margin: 0.8rem 0;
+        }
+        .task-block .task-image-placeholder {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            background: var(--primary-light);
+            border-radius: 12px;
+            font-weight: 600;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+        .task-block .task-image-placeholder i {
+            margin-right: 0.5rem;
+        }
+
+        .solution-block {
+            margin-top: 1rem;
+            padding: 1.2rem;
+            background: #f5f0ee;
+            border-radius: 16px;
+            border-left: 4px solid var(--primary);
+        }
+        .solution-block .solution-title {
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+        .solution-block .solution-text {
+            line-height: 1.7;
+        }
+        .solution-block .solution-text .math {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+        }
+
+        .homework-section {
+            margin-top: 2rem;
+            padding: 2rem;
+            background: #faf6f4;
+            border-radius: 32px;
+            border: 2px solid var(--primary-light);
+        }
+        .homework-section .hw-item {
+            margin-bottom: 1.5rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+        .homework-section .hw-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+        .homework-section .hw-number {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 800;
+            color: var(--primary);
+            font-size: 1.1rem;
+        }
+        .homework-section .hw-text {
+            font-size: 1rem;
+            line-height: 1.7;
+            margin: 0.3rem 0;
+        }
+        .homework-section .hw-image {
+            max-width: 100%;
+            border-radius: 16px;
+            border: 1px solid var(--border-color);
+            margin: 0.5rem 0;
         }
 
         /* ============================================================
@@ -313,9 +421,8 @@
 
             .container { padding: 0 0.8rem 1.5rem; }
             .page-title { font-size: 1.8rem; }
-
-            .detail-grid { grid-template-columns: 1fr; }
-            .detail-card { padding: 1.2rem; }
+            .task-block .task-text { font-size: 0.95rem; }
+            .homework-title { font-size: 1.4rem; }
         }
 
         @media (max-width: 480px) {
@@ -324,6 +431,7 @@
             .nav-school { font-size: 0.6rem; }
             .burger-btn { font-size: 1.4rem; }
             .page-title { font-size: 1.5rem; }
+            .homework-section { padding: 1.2rem; }
         }
     </style>
 </head>
@@ -357,55 +465,343 @@
             <a href="zanytiya.html" class="back-btn" title="Назад к занятиям">
                 <i class="fas fa-arrow-left"></i>
             </a>
-            <h1 class="page-title" style="margin:0;">🧮 Алгебра: уравнения</h1>
-            <span class="badge badge-green">✅ Завершено</span>
+            <h1 class="page-title" style="margin:0;">❓ Можно или нельзя? Существует или не существует?</h1>
+            <span class="badge badge-primary">🔄 В процессе</span>
         </div>
         <p class="page-subtitle">📅 15 марта 2026</p>
 
-        <div class="detail-grid">
-            <!-- ЗАДАНИЯ -->
-            <div class="card detail-card">
-                <h3><i class="fas fa-pencil-alt" style="color:var(--primary);"></i> Задания</h3>
-                <ul>
-                    <li><span class="item-icon"><i class="fas fa-pencil-alt"></i></span> Решить уравнение 3x + 7 = 22</li>
-                    <li><span class="item-icon"><i class="fas fa-pencil-alt"></i></span> Найти корни x² - 5x + 6 = 0</li>
-                    <li><span class="item-icon"><i class="fas fa-pencil-alt"></i></span> Решить систему уравнений</li>
-                    <li><span class="item-icon"><i class="fas fa-pencil-alt"></i></span> Доказать тождество</li>
-                </ul>
-            </div>
-
-            <!-- ТЕСТЫ -->
-            <div class="card detail-card">
-                <h3><i class="fas fa-check-circle" style="color:var(--primary);"></i> Тесты</h3>
-                <ul>
-                    <li><span class="item-icon"><i class="fas fa-check-circle"></i></span> Тест: линейные уравнения (10 вопросов)</li>
-                    <li><span class="item-icon"><i class="fas fa-check-circle"></i></span> Тест: квадратные уравнения (8 вопросов)</li>
-                    <li><span class="item-icon"><i class="fas fa-check-circle"></i></span> Итоговый тест (15 вопросов)</li>
-                </ul>
-            </div>
-
-            <!-- ВИДЕО -->
-            <div class="card detail-card">
-                <h3><i class="fas fa-video" style="color:var(--primary);"></i> Видео</h3>
-                <ul>
-                    <li><span class="item-icon"><i class="fas fa-video"></i></span> Видео: как решать линейные уравнения</li>
-                    <li><span class="item-icon"><i class="fas fa-video"></i></span> Видео: дискриминант — просто о сложном</li>
-                    <li><span class="item-icon"><i class="fas fa-video"></i></span> Видео: решение систем уравнений</li>
-                </ul>
-            </div>
-
-            <!-- МАТЕРИАЛЫ -->
-            <div class="card detail-card">
-                <h3><i class="fas fa-file-alt" style="color:var(--primary);"></i> Материалы</h3>
-                <ul>
-                    <li><span class="item-icon"><i class="fas fa-file-alt"></i></span> Шпаргалка по уравнениям</li>
-                    <li><span class="item-icon"><i class="fas fa-file-alt"></i></span> Сборник задач для самостоятельной работы</li>
-                    <li><span class="item-icon"><i class="fas fa-file-alt"></i></span> Теоретический материал</li>
-                </ul>
+        <!-- ============================================================
+        ВСТУПЛЕНИЕ
+        ============================================================ -->
+        <div class="card" style="margin-bottom: 2rem;">
+            <p style="font-size: 1.05rem; line-height: 1.7;">
+                Для того, чтобы решить следующую задачу, тебе нужно знать понятие <strong>чётности и нечётности</strong>,
+                а также свойства чётных и нечётных чисел.
+            </p>
+            <p style="font-size: 1.05rem; line-height: 1.7; margin-top: 0.5rem;">
+                <strong>Попробуйте доказать, почему эти свойства верны?</strong>
+                Может ли быть так, что какое-то свойство неверно?
+            </p>
+            <div style="margin-top: 1rem; text-align: center;">
+                <div class="task-image-placeholder">
+                    <i class="fas fa-image"></i> Картинка 1 (иллюстрация)
+                </div>
             </div>
         </div>
 
-        <div style="margin-top: 1.5rem;">
+        <hr class="divider" />
+
+        <!-- ============================================================
+        ЗАДАЧА №2
+        ============================================================ -->
+        <div class="task-block">
+            <div class="task-number">Задача №2</div>
+            <p class="task-text">
+                В стране Конфетии в ходу только монеты в <strong>1, 3 и 5 цукатов</strong>.
+                У жителя Конфетии в кармане <strong>10 монет</strong>.
+                Может ли у него быть ровно <strong>24 цуката</strong>?
+            </p>
+            <button class="btn-small answer-toggle" onclick="toggleAnswer('answer2')">
+                <i class="fas fa-eye"></i> Показать ответ
+            </button>
+            <div class="answer-hidden" id="answer2">
+                <strong>Ответ:</strong> 1, 3, 5, 5, 5, 5 (6 монет, но нужно 10 — проверь!)
+            </div>
+        </div>
+
+        <!-- ============================================================
+        ЗАДАЧА №2 (изменённое условие)
+        ============================================================ -->
+        <div class="task-block">
+            <div class="task-number">Немного изменим условие 2-й задачи</div>
+            <p class="task-text">
+                В стране Конфетии в ходу только монеты в <strong>1, 3 и 5 цукатов</strong>.
+                У жителя Конфетии в кармане <strong>10 монет</strong>.
+                Может ли у него быть ровно <strong>25 цукатов</strong>?
+            </p>
+            <button class="btn-small answer-toggle" onclick="toggleAnswer('answer2b')">
+                <i class="fas fa-eye"></i> Показать ответ
+            </button>
+            <div class="answer-hidden" id="answer2b">
+                <strong>Ответ:</strong> нет
+            </div>
+        </div>
+
+        <hr class="divider" />
+
+        <!-- ============================================================
+        ЗАДАЧА №3
+        ============================================================ -->
+        <div class="task-block">
+            <div class="task-number">Задача №3</div>
+            <p class="task-text">
+                Из шахматной доски (см. рис.1) выпилили:
+                <br />а) угловую клетку;
+                <br />б) две соседние угловые клетки;
+                <br />в) две противоположные угловые клетки.
+                <br /><br />
+                <strong>Можно ли оставшуюся часть доски распилить на плиточки из двух клеток?</strong>
+            </p>
+            <button class="btn-small answer-toggle" onclick="toggleAnswer('answer3')">
+                <i class="fas fa-eye"></i> Показать ответ
+            </button>
+            <div class="answer-hidden" id="answer3">
+                <strong>Ответ:</strong> а) нет, б) да, в) нет
+            </div>
+
+            <button class="btn-small answer-toggle" style="margin-top: 0.5rem;" onclick="toggleAnswer('solution3')">
+                <i class="fas fa-lightbulb"></i> Показать решение
+            </button>
+            <div class="answer-hidden" id="solution3">
+                <div class="solution-block">
+                    <div class="solution-title">📝 Подробное решение:</div>
+                    <div class="solution-text">
+                        <p><strong>а)</strong> После вырезания одной угловой клетки на доске останется 63 клетки. Одна плитка занимает 2 клетки, а 63 на 2 не делится. Значит, распилить на плитки оставшуюся часть доски не получится.</p>
+                        <p style="margin-top: 0.5rem;"><strong>б)</strong> Один из способов разрезания — на рисунке:</p>
+                        <div class="task-image-placeholder">
+                            <i class="fas fa-image"></i> Картинка 2 (способ разрезания)
+                        </div>
+                        <p style="margin-top: 0.5rem;"><strong>в)</strong> Заметим, что противоположные клетки шахматной доски одинакового цвета (обе чёрные или обе белые), а каждая плиточка содержит одну чёрную и одну белую клетку. Значит, во всех плиточках вместе поровну чёрных и белых клеток, а на доске осталось 30 клеток одного цвета и 32 клетки другого цвета. Значит, всю оставшуюся доску разрезать не получится.</p>
+                    </div>
+                </div>
+
+                <div class="solution-block" style="margin-top: 1rem; border-left-color: var(--success);">
+                    <div class="solution-title">📓 Пример оформления решения в тетради:</div>
+                    <div class="solution-text">
+                        <p>1) 8 ∙ 8 = <span class="math">64</span> (кл.) — было на доске</p>
+                        <p>2) 64 : 2 = <span class="math">32</span> (кл.) — было каждого цвета на доске</p>
+                        <p>3) 32 – 2 = <span class="math">30</span> (кл.) — стало одного из цветов</p>
+                        <p style="font-style: italic;">Каждая плиточка накрывает 1 чёрную и 1 белую клетку.<br />⇒ Во всех плиточках в сумме поровну чёрных и белых клеток</p>
+                        <p>4) 30 ≠ 32. ⇒ <strong>Нельзя разрезать всю доску</strong></p>
+                        <p style="margin-top: 0.5rem;"><strong>Ответ:</strong> а) нет, б) да, в) нет.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <hr class="divider" />
+
+        <!-- ============================================================
+        ЗАДАЧА №4
+        ============================================================ -->
+        <div class="task-block">
+            <div class="task-number">Задача №4</div>
+            <p class="task-text">
+                Петин кот перед дождём всегда чихает. Сегодня он чихнул.
+                <br /><strong>«Значит, будет дождь»</strong> — думает Петя.
+                <br />Прав ли он?
+            </p>
+            <button class="btn-small answer-toggle" onclick="toggleAnswer('answer4')">
+                <i class="fas fa-eye"></i> Показать ответ
+            </button>
+            <div class="answer-hidden" id="answer4">
+                <strong>Ответ:</strong> Петя не прав
+            </div>
+        </div>
+
+        <hr class="divider" />
+
+        <!-- ============================================================
+        ЗАДАЧА №5
+        ============================================================ -->
+        <div class="task-block">
+            <div class="task-number">Задача №5*</div>
+            <p class="task-text">
+                Произведение двух чисел умножили на их разность.
+                <br /><strong>Может ли получиться 30?</strong>
+            </p>
+            <button class="btn-small answer-toggle" onclick="toggleAnswer('answer5')">
+                <i class="fas fa-eye"></i> Показать ответ
+            </button>
+            <div class="answer-hidden" id="answer5">
+                <strong>Ответ:</strong> да, например: 5 и 6 (5 · 6 · (6 − 5) = 30)
+            </div>
+        </div>
+
+        <hr class="divider" />
+
+        <!-- ============================================================
+        ЗАДАЧА №6
+        ============================================================ -->
+        <div class="task-block">
+            <div class="task-number">Задача №6</div>
+            <p class="task-text">
+                Пираты нашли клад в виде квадратной золотой плитки размерами <strong>5 м × 5 м</strong>.
+                Добычу распилили на прямоугольные куски размерами <strong>1 м × 5 м</strong> и <strong>1 м × 3 м</strong>.
+                <br /><br />
+                <strong>Могло ли получиться:</strong>
+                <br />а) 7 кусков;
+                <br />б) 8 кусков?
+            </p>
+            <button class="btn-small answer-toggle" onclick="toggleAnswer('answer6')">
+                <i class="fas fa-eye"></i> Показать ответ
+            </button>
+            <div class="answer-hidden" id="answer6">
+                <strong>Ответ:</strong> а) да, б) нет
+            </div>
+
+            <button class="btn-small answer-toggle" style="margin-top: 0.5rem;" onclick="toggleAnswer('solution6')">
+                <i class="fas fa-lightbulb"></i> Показать решение
+            </button>
+            <div class="answer-hidden" id="solution6">
+                <div class="solution-block">
+                    <div class="solution-title">📝 Решение:</div>
+                    <div class="solution-text">
+                        <p>Куски имеют <strong>нечётную площадь</strong> (в квадратных метрах). Значит, сумма площадей 8 кусков была равна <strong>чётному</strong> числу квадратных метров, а площадь плитки — <strong>нечётная</strong> (5 ∙ 5 = 25 м²).</p>
+                        <p style="margin-top: 0.5rem;">⇒ <strong>8 кусков получиться не могло.</strong></p>
+                        <p style="margin-top: 0.5rem;"><strong>Ответ:</strong> а) да, б) нет.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <hr class="divider" />
+
+        <!-- ============================================================
+        ЗАКЛЮЧЕНИЕ
+        ============================================================ -->
+        <div class="card" style="text-align: center; margin-bottom: 2rem;">
+            <p style="font-size: 1.1rem; line-height: 1.7;">
+                🎉 <strong>Молодец!</strong> Ты решил основные задачи из темы <strong>«Можно или нельзя»</strong>.
+            </p>
+            <p style="font-size: 1.05rem; line-height: 1.7; margin-top: 0.5rem; color: var(--text-secondary);">
+                Попробуй ещё свои силы. В комментариях можно найти подсказки, а на следующем шаге будут приведены решения этих задач.
+            </p>
+        </div>
+
+        <!-- ============================================================
+        ДОМАШНЕЕ ЗАДАНИЕ
+        ============================================================ -->
+        <div class="homework-title">📖 Домашнее задание</div>
+
+        <div class="homework-section">
+
+            <!-- №7 -->
+            <div class="hw-item">
+                <div class="hw-number">№7</div>
+                <div class="hw-text">
+                    В стакане находятся бактерии. Через секунду каждая из бактерий делится пополам, затем каждая из получившихся бактерий через секунду делится пополам и так далее. Через минуту стакан полон.
+                    <br /><strong>Через какое время стакан был заполнен наполовину?</strong>
+                </div>
+                <button class="btn-small answer-toggle" onclick="toggleAnswer('hw7')">
+                    <i class="fas fa-eye"></i> Показать решение
+                </button>
+                <div class="answer-hidden" id="hw7">
+                    <div class="solution-block">
+                        <div class="solution-title">📝 Решение:</div>
+                        <div class="solution-text">
+                            <p>По условию задачи, каждую секунду количество бактерий в стакане <strong>удваивается</strong>. Значит, половина стакана заполнится ровно на секунду раньше, чем полный стакан, то есть <strong>за 59 секунд</strong>.</p>
+                            <p style="margin-top: 0.5rem;"><strong>Ответ:</strong> через 59 секунд.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- №8 -->
+            <div class="hw-item">
+                <div class="hw-number">№8</div>
+                <div class="hw-text">
+                    <strong>Существует ли 11-значное число, все цифры которого различны?</strong>
+                </div>
+                <button class="btn-small answer-toggle" onclick="toggleAnswer('hw8')">
+                    <i class="fas fa-eye"></i> Показать решение
+                </button>
+                <div class="answer-hidden" id="hw8">
+                    <div class="solution-block">
+                        <div class="solution-title">📝 Решение:</div>
+                        <div class="solution-text">
+                            <p>Нет, не существует. Так как количество различных цифр — <strong>10</strong> (0, 1, 2, 3, 4, 5, 6, 7, 8, 9).</p>
+                            <p style="margin-top: 0.5rem;"><strong>Ответ:</strong> нет, не существует.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- №9 -->
+            <div class="hw-item">
+                <div class="hw-number">№9</div>
+                <div class="hw-text">
+                    Двенадцать спичек выложены так, как показано на рисунке.
+                    <br /><strong>Сколько здесь квадратов? Можно ли переложить 4 спички так, чтобы образовалось 10 квадратов?</strong>
+                </div>
+                <div class="task-image-placeholder">
+                    <i class="fas fa-image"></i> Картинка 3 (спички)
+                </div>
+                <button class="btn-small answer-toggle" onclick="toggleAnswer('hw9')">
+                    <i class="fas fa-eye"></i> Показать решение
+                </button>
+                <div class="answer-hidden" id="hw9">
+                    <div class="solution-block">
+                        <div class="solution-title">📝 Решение:</div>
+                        <div class="solution-text">
+                            <p><strong>Да, можно.</strong> Пример показан на рисунках ниже:</p>
+                            <div class="task-image-placeholder">
+                                <i class="fas fa-image"></i> Картинка 5 (решение)
+                            </div>
+                            <div class="task-image-placeholder" style="margin-top: 0.5rem;">
+                                <i class="fas fa-image"></i> Картинка 6 (решение)
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- №10 -->
+            <div class="hw-item">
+                <div class="hw-number">№10</div>
+                <div class="hw-text">
+                    Вместо букв поставьте цифры так, чтобы получилось верное равенство:
+                </div>
+                <div class="task-image-placeholder">
+                    <i class="fas fa-image"></i> Картинка 4 (ребус)
+                </div>
+                <button class="btn-small answer-toggle" onclick="toggleAnswer('hw10')">
+                    <i class="fas fa-eye"></i> Показать решение
+                </button>
+                <div class="answer-hidden" id="hw10">
+                    <div class="solution-block">
+                        <div class="solution-title">📝 Решение:</div>
+                        <div class="solution-text">
+                            <p>125 · 125 = 625 + 250 + 125 = <strong>15625</strong></p>
+                            <p style="margin-top: 0.5rem;"><strong>Ответ:</strong> 125 · 125 = 15625.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- №11 -->
+            <div class="hw-item" style="border-bottom: none; margin-bottom: 0; padding-bottom: 0;">
+                <div class="hw-number">№11</div>
+                <div class="hw-text">
+                    Среди четырёх людей нет трёх с одинаковым именем, или с одинаковым отчеством, или с одинаковой фамилией, но у каждых двух совпадает или имя, или фамилия, или отчество.
+                    <br /><strong>Может ли такое быть?</strong>
+                </div>
+                <button class="btn-small answer-toggle" onclick="toggleAnswer('hw11')">
+                    <i class="fas fa-eye"></i> Показать решение
+                </button>
+                <div class="answer-hidden" id="hw11">
+                    <div class="solution-block">
+                        <div class="solution-title">📝 Решение:</div>
+                        <div class="solution-text">
+                            <p><strong>Может.</strong> Например:</p>
+                            <ul style="margin-top: 0.5rem; list-style: none; padding: 0;">
+                                <li style="padding: 0.3rem 0;">• Иванов Александр Сергеевич</li>
+                                <li style="padding: 0.3rem 0;">• Иванов Павел Васильевич</li>
+                                <li style="padding: 0.3rem 0;">• Гусев Александр Васильевич</li>
+                                <li style="padding: 0.3rem 0;">• Гусев Павел Сергеевич</li>
+                            </ul>
+                            <p style="margin-top: 0.5rem;"><strong>Ответ:</strong> да, может.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- ============================================================
+        КНОПКА НАЗАД
+        ============================================================ -->
+        <div style="margin-top: 2rem;">
             <a href="zanytiya.html" class="btn-secondary">
                 <i class="fas fa-arrow-left"></i> Ко всем занятиям
             </a>
@@ -413,15 +809,36 @@
 
     </main>
 
+    <!-- ========== ФУТЕР ========== -->
     <footer class="footer">
         <p>🏆 Олимпиадный практикум &copy; 2026</p>
     </footer>
 
+    <!-- ============================================================
+    JAVASCRIPT
+    ============================================================ -->
     <script>
+        // ============================================================
+        // ФУНКЦИЯ ДЛЯ ПОКАЗА/СКРЫТИЯ ОТВЕТОВ
+        // ============================================================
+        function toggleAnswer(id) {
+            const el = document.getElementById(id);
+            if (el) {
+                el.classList.toggle('show');
+                const btn = el.previousElementSibling;
+                if (btn && btn.classList.contains('answer-toggle')) {
+                    if (el.classList.contains('show')) {
+                        btn.innerHTML = '<i class="fas fa-eye-slash"></i> Скрыть';
+                    } else {
+                        btn.innerHTML = '<i class="fas fa-eye"></i> Показать ответ';
+                    }
+                }
+            }
+        }
+
         // ============================================================
         // БУРГЕР-МЕНЮ
         // ============================================================
-
         document.getElementById('burgerBtn').addEventListener('click', () => {
             document.getElementById('navMenu').classList.toggle('open');
         });
