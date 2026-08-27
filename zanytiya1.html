@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Занятие №1 — Олимпиадный практикум</title>
+    
+    <!-- Шрифты -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@400;500;600;700&family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+    
+    <!-- Font Awesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    
+    <style>
+        /* ============================================================
+           ДИЗАЙН-СИСТЕМА (ТА ЖЕ)
+           ============================================================ */
+        :root {
+            --primary: #8D0B0D;
+            --primary-light: #FBC5D9;
+            --bg-page: #F1EBE9;
+            --bg-white: #FFFFFF;
+            --text-primary: #000000;
+            --text-secondary: #555555;
+            --text-light: #999999;
+            --shadow-color: #d0c8c4;
+            --border-color: #e8e0dc;
+            --success: #27ae60;
+            --error: #c0392b;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-page);
+            color: var(--text-primary);
+            padding-top: 70px;
+            min-height: 100vh;
+        }
+
+        h1, h2, h3, .page-title {
+            font-family: 'Playfair Display', serif;
+        }
+
+        .card {
+            background: var(--bg-white);
+            border-radius: 32px;
+            padding: 1.8rem;
+            box-shadow: 0 8px 0 var(--shadow-color), 0 12px 28px rgba(0,0,0,0.06);
+            border: 1px solid var(--border-color);
+            transition: 0.3s;
+        }
+        .card:hover {
+            transform: translateY(-4px);
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: #FFFFFF;
+            border: none;
+            padding: 0.8rem 2rem;
+            border-radius: 60px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            transition: 0.25s;
+            box-shadow: 0 8px 20px rgba(141,11,13,0.2);
+            text-decoration: none;
+        }
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 28px rgba(141,11,13,0.35);
+        }
+
+        .btn-secondary {
+            background: var(--primary-light);
+            color: #000;
+            border: none;
+            padding: 0.8rem 2rem;
+            border-radius: 60px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: 0.25s;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+        .btn-secondary:hover {
+            background: #f5b2cc;
+            transform: translateY(-3px);
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 0.2rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+        .badge-primary { background: var(--primary); color: #fff; }
+        .badge-pink { background: var(--primary-light); color: #000; }
+        .badge-green { background: var(--success); color: #fff; }
+        .badge-gray { background: var(--border-color); color: var(--text-secondary); }
+
+        /* ============================================================
+           НАВИГАЦИЯ
+           ============================================================ */
+        .navbar {
+            background: #ffffff;
+            padding: 0.6rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+            border-bottom: 3px solid var(--primary-light);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            min-height: 60px;
+        }
+
+        .nav-left {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .nav-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            font-weight: 700;
+            text-decoration: none;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .nav-title-icon { font-size: 1.5rem; }
+        .nav-title span span { color: var(--primary); }
+
+        .nav-menu {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+        .nav-menu a {
+            text-decoration: none;
+            color: var(--text-primary);
+            font-weight: 600;
+            font-size: 0.95rem;
+            padding: 0.5rem 0.2rem;
+            border-bottom: 3px solid transparent;
+            transition: 0.25s;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+        .nav-menu a:hover,
+        .nav-menu a.active {
+            border-bottom-color: var(--primary);
+            color: var(--primary);
+        }
+
+        .nav-school {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+            text-align: right;
+            line-height: 1.3;
+        }
+        .nav-school .school-name {
+            color: var(--primary);
+            font-weight: 700;
+        }
+
+        .burger-btn {
+            display: none;
+            font-size: 1.8rem;
+            cursor: pointer;
+            color: var(--primary);
+            background: none;
+            border: none;
+            padding: 0.2rem 0.5rem;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 2rem;
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            border-top: 2px solid var(--primary-light);
+            margin-top: 2rem;
+            background: rgba(255, 255, 255, 0.5);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem 2rem;
+        }
+
+        .page-title {
+            font-size: 2.4rem;
+            margin-top: 0.5rem;
+            margin-bottom: 0.2rem;
+        }
+        .page-subtitle {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+        }
+
+        /* ============================================================
+           ДЕТАЛИ ЗАНЯТИЯ
+           ============================================================ */
+        .lesson-detail-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-bottom: 1.5rem;
+        }
+        .lesson-detail-header .back-btn {
+            font-size: 1.5rem;
+            color: var(--primary);
+            text-decoration: none;
+            transition: 0.2s;
+        }
+        .lesson-detail-header .back-btn:hover {
+            transform: translateX(-4px);
+        }
+
+        .detail-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+        .detail-card {
+            padding: 1.5rem;
+        }
+        .detail-card h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            margin-bottom: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+        .detail-card ul {
+            list-style: none;
+            padding: 0;
+        }
+        .detail-card ul li {
+            padding: 0.6rem 0;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+        .detail-card ul li:last-child {
+            border-bottom: none;
+        }
+        .detail-card ul li .item-icon {
+            width: 28px;
+            color: var(--primary);
+        }
+
+        /* ============================================================
+           АДАПТИВНОСТЬ
+           ============================================================ */
+        @media (max-width: 768px) {
+            body { padding-top: 55px; }
+            .navbar { padding: 0.4rem 1rem; min-height: 50px; flex-wrap: wrap; }
+            .nav-title { font-size: 1rem; }
+            .nav-title span span { display: none; }
+            .nav-school { font-size: 0.7rem; }
+            .burger-btn { display: block; }
+            .nav-menu {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: #ffffff;
+                flex-direction: column;
+                padding: 1rem;
+                gap: 0.3rem;
+                border-bottom: 3px solid var(--primary-light);
+                box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+            }
+            .nav-menu.open { display: flex; }
+            .nav-menu a {
+                font-size: 0.9rem;
+                padding: 0.6rem 0;
+                width: 100%;
+                text-align: center;
+                border-bottom: 1px solid #f0ecea;
+                justify-content: center;
+            }
+            .nav-menu a:last-child { border-bottom: none; }
+
+            .container { padding: 0 0.8rem 1.5rem; }
+            .page-title { font-size: 1.8rem; }
+
+            .detail-grid { grid-template-columns: 1fr; }
+            .detail-card { padding: 1.2rem; }
+        }
+
+        @media (max-width: 480px) {
+            body { padding-top: 48px; }
+            .nav-title { font-size: 0.85rem; }
+            .nav-school { font-size: 0.6rem; }
+            .burger-btn { font-size: 1.4rem; }
+            .page-title { font-size: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ========== НАВИГАЦИЯ ========== -->
+    <nav class="navbar">
+        <div class="nav-left">
+            <button class="burger-btn" id="burgerBtn" aria-label="Меню">
+                <i class="fas fa-bars"></i>
+            </button>
+            <a href="index.html" class="nav-title">
+                <span class="nav-title-icon">🏆</span>
+                <span>Олимпиадный <span>практикум</span></span>
+            </a>
+        </div>
+        <div class="nav-menu" id="navMenu">
+            <a href="index.html"><i class="fas fa-home"></i> Главная</a>
+            <a href="zanytiya.html"><i class="fas fa-tasks"></i> Занятия</a>
+        </div>
+        <div class="nav-school">
+            МАОУ СШ №151<br />
+            <span class="school-name">г. Красноярска</span>
+        </div>
+    </nav>
+
+    <!-- ========== ОСНОВНОЙ КОНТЕНТ ========== -->
+    <main class="container">
+
+        <div class="lesson-detail-header">
+            <a href="zanytiya.html" class="back-btn" title="Назад к занятиям">
+                <i class="fas fa-arrow-left"></i>
+            </a>
+            <h1 class="page-title" style="margin:0;">🧮 Алгебра: уравнения</h1>
+            <span class="badge badge-green">✅ Завершено</span>
+        </div>
+        <p class="page-subtitle">📅 15 марта 2026</p>
+
+        <div class="detail-grid">
+            <!-- ЗАДАНИЯ -->
+            <div class="card detail-card">
+                <h3><i class="fas fa-pencil-alt" style="color:var(--primary);"></i> Задания</h3>
+                <ul>
+                    <li><span class="item-icon"><i class="fas fa-pencil-alt"></i></span> Решить уравнение 3x + 7 = 22</li>
+                    <li><span class="item-icon"><i class="fas fa-pencil-alt"></i></span> Найти корни x² - 5x + 6 = 0</li>
+                    <li><span class="item-icon"><i class="fas fa-pencil-alt"></i></span> Решить систему уравнений</li>
+                    <li><span class="item-icon"><i class="fas fa-pencil-alt"></i></span> Доказать тождество</li>
+                </ul>
+            </div>
+
+            <!-- ТЕСТЫ -->
+            <div class="card detail-card">
+                <h3><i class="fas fa-check-circle" style="color:var(--primary);"></i> Тесты</h3>
+                <ul>
+                    <li><span class="item-icon"><i class="fas fa-check-circle"></i></span> Тест: линейные уравнения (10 вопросов)</li>
+                    <li><span class="item-icon"><i class="fas fa-check-circle"></i></span> Тест: квадратные уравнения (8 вопросов)</li>
+                    <li><span class="item-icon"><i class="fas fa-check-circle"></i></span> Итоговый тест (15 вопросов)</li>
+                </ul>
+            </div>
+
+            <!-- ВИДЕО -->
+            <div class="card detail-card">
+                <h3><i class="fas fa-video" style="color:var(--primary);"></i> Видео</h3>
+                <ul>
+                    <li><span class="item-icon"><i class="fas fa-video"></i></span> Видео: как решать линейные уравнения</li>
+                    <li><span class="item-icon"><i class="fas fa-video"></i></span> Видео: дискриминант — просто о сложном</li>
+                    <li><span class="item-icon"><i class="fas fa-video"></i></span> Видео: решение систем уравнений</li>
+                </ul>
+            </div>
+
+            <!-- МАТЕРИАЛЫ -->
+            <div class="card detail-card">
+                <h3><i class="fas fa-file-alt" style="color:var(--primary);"></i> Материалы</h3>
+                <ul>
+                    <li><span class="item-icon"><i class="fas fa-file-alt"></i></span> Шпаргалка по уравнениям</li>
+                    <li><span class="item-icon"><i class="fas fa-file-alt"></i></span> Сборник задач для самостоятельной работы</li>
+                    <li><span class="item-icon"><i class="fas fa-file-alt"></i></span> Теоретический материал</li>
+                </ul>
+            </div>
+        </div>
+
+        <div style="margin-top: 1.5rem;">
+            <a href="zanytiya.html" class="btn-secondary">
+                <i class="fas fa-arrow-left"></i> Ко всем занятиям
+            </a>
+        </div>
+
+    </main>
+
+    <footer class="footer">
+        <p>🏆 Олимпиадный практикум &copy; 2026</p>
+    </footer>
+
+    <script>
+        // ============================================================
+        // БУРГЕР-МЕНЮ
+        // ============================================================
+
+        document.getElementById('burgerBtn').addEventListener('click', () => {
+            document.getElementById('navMenu').classList.toggle('open');
+        });
+
+        document.querySelectorAll('.nav-menu a').forEach(a => {
+            a.addEventListener('click', () => {
+                document.getElementById('navMenu').classList.remove('open');
+            });
+        });
+    </script>
+
+</body>
+</html>
