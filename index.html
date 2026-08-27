@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Олимпиадный практикум — Главная</title>
+    <title>Все занятия — Олимпиадный практикум</title>
     
     <!-- Шрифты -->
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@400;500;600;700&family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
@@ -13,7 +13,7 @@
     
     <style>
         /* ============================================================
-           ДИЗАЙН-СИСТЕМА
+           ДИЗАЙН-СИСТЕМА (ТА ЖЕ, ЧТО НА ГЛАВНОЙ)
            ============================================================ */
         :root {
             --primary: #8D0B0D;
@@ -46,12 +46,7 @@
         h1, h2, h3, .page-title {
             font-family: 'Playfair Display', serif;
         }
-        .trainer-title, .stat-number {
-            font-family: 'Montserrat', sans-serif;
-            font-weight: 800;
-        }
 
-        /* ---------- КАРТОЧКИ ---------- */
         .card {
             background: var(--bg-white);
             border-radius: 32px;
@@ -64,7 +59,6 @@
             transform: translateY(-4px);
         }
 
-        /* ---------- КНОПКИ ---------- */
         .btn-primary {
             background: var(--primary);
             color: #FFFFFF;
@@ -116,12 +110,15 @@
             font-size: 0.8rem;
             cursor: pointer;
             transition: 0.2s;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
         }
         .btn-small:hover {
             background: #f5b2cc;
         }
 
-        /* ---------- БЭЙДЖИ ---------- */
         .badge {
             display: inline-block;
             padding: 0.2rem 0.8rem;
@@ -195,17 +192,16 @@
             color: var(--primary);
         }
 
-        .nav-avatar {
-            width: 52px;
-            height: 52px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 3px solid var(--primary-light);
-            box-shadow: 0 4px 12px rgba(141,11,13,0.15);
-            transition: transform 0.2s;
+        .nav-school {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+            text-align: right;
+            line-height: 1.3;
         }
-        .nav-avatar:hover {
-            transform: scale(1.05);
+        .nav-school .school-name {
+            color: var(--primary);
+            font-weight: 700;
         }
 
         .burger-btn {
@@ -218,7 +214,6 @@
             padding: 0.2rem 0.5rem;
         }
 
-        /* ---------- ФУТЕР ---------- */
         .footer {
             text-align: center;
             padding: 2rem;
@@ -229,26 +224,10 @@
             background: rgba(255, 255, 255, 0.5);
         }
 
-        /* ============================================================
-           ОСНОВНОЙ КОНТЕЙНЕР
-           ============================================================ */
         .container {
             max-width: 1200px;
             margin: 0 auto;
             padding: 0 1.5rem 2rem;
-        }
-
-        .page {
-            display: none;
-            animation: fadeIn 0.4s ease;
-        }
-        .page.active {
-            display: block;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
         }
 
         .page-title {
@@ -262,60 +241,6 @@
             margin-bottom: 2rem;
         }
 
-        .section-title {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.8rem;
-            margin: 2rem 0 1rem;
-        }
-
-        /* ============================================================
-           БЛОК РАСПИСАНИЕ (КАЛЕНДАРЬ)
-           ============================================================ */
-        .schedule-grid {
-            display: grid;
-            grid-template-columns: repeat(7, 1fr);
-            gap: 0.5rem;
-            margin-bottom: 1rem;
-        }
-        .schedule-day {
-            text-align: center;
-            padding: 0.8rem 0.2rem;
-            border-radius: 16px;
-            background: var(--bg-white);
-            border: 1px solid var(--border-color);
-            transition: 0.2s;
-            cursor: default;
-        }
-        .schedule-day .day-name {
-            font-size: 0.7rem;
-            font-weight: 600;
-            color: var(--text-secondary);
-            text-transform: uppercase;
-        }
-        .schedule-day .day-number {
-            font-family: 'Montserrat', sans-serif;
-            font-weight: 800;
-            font-size: 1.8rem;
-            line-height: 1.2;
-        }
-        .schedule-day.today {
-            background: var(--primary);
-            border-color: var(--primary);
-        }
-        .schedule-day.today .day-name,
-        .schedule-day.today .day-number {
-            color: #fff;
-        }
-        .schedule-day.has-lesson {
-            border-bottom: 4px solid var(--primary);
-        }
-        .schedule-day.weekend {
-            opacity: 0.5;
-        }
-
-        /* ============================================================
-           ТАБЛИЦА ЗАНЯТИЙ (ТЕМЫ)
-           ============================================================ */
         .lessons-table-wrap {
             overflow-x: auto;
         }
@@ -364,81 +289,8 @@
         .lesson-topic .topic-icon {
             margin-right: 0.5rem;
         }
-        .lesson-date {
-            color: var(--text-secondary);
-            font-size: 0.9rem;
-            white-space: nowrap;
-        }
         .lesson-status {
             white-space: nowrap;
-        }
-
-        /* ============================================================
-           СТРАНИЦА ЗАНЯТИЯ (ДЕТАЛИ)
-           ============================================================ */
-        .lesson-detail-header {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            flex-wrap: wrap;
-            margin-bottom: 1.5rem;
-        }
-        .lesson-detail-header .back-btn {
-            font-size: 1.5rem;
-            color: var(--primary);
-            text-decoration: none;
-            transition: 0.2s;
-        }
-        .lesson-detail-header .back-btn:hover {
-            transform: translateX(-4px);
-        }
-
-        .detail-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1.5rem;
-        }
-        .detail-card {
-            padding: 1.5rem;
-        }
-        .detail-card h3 {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.3rem;
-            margin-bottom: 0.8rem;
-            display: flex;
-            align-items: center;
-            gap: 0.6rem;
-        }
-        .detail-card ul {
-            list-style: none;
-            padding: 0;
-        }
-        .detail-card ul li {
-            padding: 0.6rem 0;
-            border-bottom: 1px solid var(--border-color);
-            display: flex;
-            align-items: center;
-            gap: 0.6rem;
-        }
-        .detail-card ul li:last-child {
-            border-bottom: none;
-        }
-        .detail-card ul li .item-icon {
-            width: 28px;
-            color: var(--primary);
-        }
-
-        .task-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-        }
-        .task-item .task-name {
-            font-weight: 500;
-        }
-        .task-item .task-status {
-            font-size: 0.75rem;
         }
 
         /* ============================================================
@@ -446,10 +298,10 @@
            ============================================================ */
         @media (max-width: 768px) {
             body { padding-top: 55px; }
-            .navbar { padding: 0.4rem 1rem; min-height: 50px; }
-            .nav-avatar { width: 36px; height: 36px; }
+            .navbar { padding: 0.4rem 1rem; min-height: 50px; flex-wrap: wrap; }
             .nav-title { font-size: 1rem; }
             .nav-title span span { display: none; }
+            .nav-school { font-size: 0.7rem; }
             .burger-btn { display: block; }
             .nav-menu {
                 display: none;
@@ -477,25 +329,17 @@
 
             .container { padding: 0 0.8rem 1.5rem; }
             .page-title { font-size: 1.8rem; }
-            .schedule-grid { gap: 0.3rem; }
-            .schedule-day { padding: 0.5rem 0.1rem; }
-            .schedule-day .day-number { font-size: 1.2rem; }
 
             .lessons-table th,
             .lessons-table td { padding: 0.7rem 0.8rem; font-size: 0.85rem; }
-            .lesson-date { font-size: 0.75rem; }
-
-            .detail-grid { grid-template-columns: 1fr; }
-            .detail-card { padding: 1.2rem; }
         }
 
         @media (max-width: 480px) {
             body { padding-top: 48px; }
             .nav-title { font-size: 0.85rem; }
-            .nav-avatar { width: 30px; height: 30px; }
+            .nav-school { font-size: 0.6rem; }
             .burger-btn { font-size: 1.4rem; }
             .page-title { font-size: 1.5rem; }
-            .schedule-day .day-number { font-size: 1rem; }
             .lessons-table th,
             .lessons-table td { padding: 0.5rem 0.4rem; font-size: 0.75rem; }
             .lesson-topic { font-size: 0.85rem; }
@@ -510,273 +354,67 @@
             <button class="burger-btn" id="burgerBtn" aria-label="Меню">
                 <i class="fas fa-bars"></i>
             </button>
-            <a href="#" class="nav-title" id="homeLink">
+            <a href="index.html" class="nav-title">
                 <span class="nav-title-icon">🏆</span>
                 <span>Олимпиадный <span>практикум</span></span>
             </a>
         </div>
         <div class="nav-menu" id="navMenu">
-            <a href="#" class="active" data-page="home"><i class="fas fa-home"></i> Главная</a>
-            <a href="#" data-page="lessons"><i class="fas fa-tasks"></i> Занятия</a>
-            <a href="#" data-page="stats"><i class="fas fa-chart-bar"></i> Статистика</a>
+            <a href="index.html"><i class="fas fa-home"></i> Главная</a>
+            <a href="zanytiya.html" class="active"><i class="fas fa-tasks"></i> Занятия</a>
         </div>
-        <div class="nav-right">
-            <img src="https://i.pravatar.cc/52?img=5" alt="Аватар" class="nav-avatar" />
+        <div class="nav-school">
+            МАОУ СШ №151<br />
+            <span class="school-name">г. Красноярска</span>
         </div>
     </nav>
 
     <!-- ========== ОСНОВНОЙ КОНТЕНТ ========== -->
     <main class="container">
 
-        <!-- ==========================================================
-             СТРАНИЦА: ГЛАВНАЯ (ДОМ)
-             ========================================================== -->
-        <section id="page-home" class="page active">
-            <h1 class="page-title">👋 Добро пожаловать в практикум!</h1>
-            <p class="page-subtitle">Олимпиадная математика — системно, понятно, с результатом</p>
+        <h1 class="page-title">📚 Все занятия</h1>
+        <p class="page-subtitle">Выбери занятие для подготовки</p>
 
-            <!-- Блок 1: РАСПИСАНИЕ -->
-            <h2 class="section-title">📅 Расписание на неделю</h2>
-            <div class="card" style="margin-bottom: 1rem;">
-                <div class="schedule-grid" id="scheduleGrid">
+        <div class="lessons-table-wrap">
+            <table class="lessons-table">
+                <thead>
+                    <tr>
+                        <th>Тема</th>
+                        <th>Дата</th>
+                        <th>Статус</th>
+                        <th style="text-align:center;">Детали</th>
+                    </tr>
+                </thead>
+                <tbody id="allLessonsBody">
                     <!-- Заполняется через JS -->
-                </div>
-                <div style="display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center; margin-top: 0.5rem; font-size: 0.85rem; color: var(--text-secondary);">
-                    <span><span style="display:inline-block; width:12px; height:12px; background:var(--primary); border-radius:4px; vertical-align:middle;"></span> Сегодня</span>
-                    <span><span style="display:inline-block; width:12px; height:12px; border-bottom:4px solid var(--primary); vertical-align:middle;"></span> Есть занятие</span>
-                </div>
-            </div>
+                </tbody>
+            </table>
+        </div>
 
-            <!-- Блок 2: ТАБЛИЦА ЗАНЯТИЙ (ТЕМЫ) -->
-            <h2 class="section-title">📚 Ближайшие занятия</h2>
-            <div class="lessons-table-wrap">
-                <table class="lessons-table" id="lessonsTable">
-                    <thead>
-                        <tr>
-                            <th>Тема</th>
-                            <th>Дата</th>
-                            <th>Время</th>
-                            <th>Статус</th>
-                            <th style="text-align:center;">Перейти</th>
-                        </tr>
-                    </thead>
-                    <tbody id="lessonsTableBody">
-                        <!-- Заполняется через JS -->
-                    </tbody>
-                </table>
-            </div>
-
-            <div style="margin-top: 2rem; display: flex; gap: 1rem; flex-wrap: wrap;">
-                <a href="#" class="btn-primary" id="viewAllLessonsBtn">
-                    <i class="fas fa-arrow-right"></i> Все занятия
-                </a>
-                <a href="#" class="btn-secondary" id="viewStatsBtn">
-                    <i class="fas fa-chart-simple"></i> Моя статистика
-                </a>
-            </div>
-        </section>
-
-        <!-- ==========================================================
-             СТРАНИЦА: ВСЕ ЗАНЯТИЯ (СПИСОК)
-             ========================================================== -->
-        <section id="page-lessons" class="page">
-            <h1 class="page-title">📚 Все занятия</h1>
-            <p class="page-subtitle">Выбери занятие для подготовки</p>
-
-            <div class="lessons-table-wrap">
-                <table class="lessons-table">
-                    <thead>
-                        <tr>
-                            <th>Тема</th>
-                            <th>Дата</th>
-                            <th>Время</th>
-                            <th>Статус</th>
-                            <th style="text-align:center;">Детали</th>
-                        </tr>
-                    </thead>
-                    <tbody id="allLessonsBody">
-                        <!-- Заполняется через JS -->
-                    </tbody>
-                </table>
-            </div>
-
-            <div style="margin-top: 1.5rem;">
-                <a href="#" class="btn-secondary" onclick="navigateTo('home')">
-                    <i class="fas fa-arrow-left"></i> На главную
-                </a>
-            </div>
-        </section>
-
-        <!-- ==========================================================
-             СТРАНИЦА: ДЕТАЛИ ЗАНЯТИЯ
-             ========================================================== -->
-        <section id="page-lesson-detail" class="page">
-            <div class="lesson-detail-header">
-                <a href="#" class="back-btn" id="backToLessonsBtn" title="Назад">
-                    <i class="fas fa-arrow-left"></i>
-                </a>
-                <h1 class="page-title" id="detailTitle" style="margin:0;">Занятие: Алгебра</h1>
-                <span class="badge badge-pink" id="detailStatus">В процессе</span>
-            </div>
-            <p class="page-subtitle" id="detailDate">📅 15 марта, 16:00</p>
-
-            <div class="detail-grid">
-                <!-- Задания -->
-                <div class="card detail-card">
-                    <h3><i class="fas fa-pencil-alt" style="color:var(--primary);"></i> Задания</h3>
-                    <ul id="detailTasks">
-                        <!-- Заполняется через JS -->
-                    </ul>
-                </div>
-
-                <!-- Тесты -->
-                <div class="card detail-card">
-                    <h3><i class="fas fa-check-circle" style="color:var(--primary);"></i> Тесты</h3>
-                    <ul id="detailTests">
-                        <!-- Заполняется через JS -->
-                    </ul>
-                </div>
-
-                <!-- Видео -->
-                <div class="card detail-card">
-                    <h3><i class="fas fa-video" style="color:var(--primary);"></i> Видео</h3>
-                    <ul id="detailVideos">
-                        <!-- Заполняется через JS -->
-                    </ul>
-                </div>
-
-                <!-- Материалы -->
-                <div class="card detail-card">
-                    <h3><i class="fas fa-file-alt" style="color:var(--primary);"></i> Материалы</h3>
-                    <ul id="detailMaterials">
-                        <!-- Заполняется через JS -->
-                    </ul>
-                </div>
-            </div>
-
-            <div style="margin-top: 1.5rem;">
-                <a href="#" class="btn-secondary" id="backToAllLessonsBtn2">
-                    <i class="fas fa-arrow-left"></i> Ко всем занятиям
-                </a>
-            </div>
-        </section>
-
-        <!-- ==========================================================
-             СТРАНИЦА: СТАТИСТИКА (ЗАГЛУШКА)
-             ========================================================== -->
-        <section id="page-stats" class="page">
-            <h1 class="page-title">📊 Моя статистика</h1>
-            <p class="page-subtitle">Здесь будет твой прогресс по занятиям</p>
-
-            <div class="card" style="text-align:center; padding:3rem;">
-                <div style="font-size:4rem; margin-bottom:1rem;">📈</div>
-                <h3 style="font-family:'Playfair Display',serif; font-size:1.8rem;">Скоро здесь появится статистика</h3>
-                <p style="color:var(--text-secondary); margin-top:0.5rem;">А пока решай задания и накапливай результат!</p>
-                <a href="#" class="btn-primary" style="margin-top:1.5rem;" onclick="navigateTo('home')">
-                    <i class="fas fa-home"></i> На главную
-                </a>
-            </div>
-        </section>
+        <div style="margin-top: 1.5rem;">
+            <a href="index.html" class="btn-secondary">
+                <i class="fas fa-arrow-left"></i> На главную
+            </a>
+        </div>
 
     </main>
 
-    <!-- ========== ФУТЕР ========== -->
     <footer class="footer">
         <p>🏆 Олимпиадный практикум &copy; 2026</p>
     </footer>
 
-    <!-- ============================================================
-    JAVASCRIPT
-    ============================================================ -->
     <script>
         // ============================================================
-        // ДАННЫЕ
+        // ДАННЫЕ ЗАНЯТИЙ (ВСЕ)
         // ============================================================
 
-        // Расписание на неделю (текущая неделя)
-        function getWeekDays() {
-            const now = new Date();
-            const start = new Date(now);
-            start.setDate(now.getDate() - now.getDay() + 1); // Понедельник
-            const days = [];
-            for (let i = 0; i < 7; i++) {
-                const d = new Date(start);
-                d.setDate(start.getDate() + i);
-                days.push(d);
-            }
-            return days;
-        }
-
-        // Занятия (темы) с привязкой к датам
         const LESSONS = [
-            { id: 1, topic: '🧮 Алгебра: уравнения', date: getWeekDays()[0], time: '16:00', status: 'completed' },
-            { id: 2, topic: '📐 Геометрия: треугольники', date: getWeekDays()[1], time: '17:30', status: 'in-progress' },
-            { id: 3, topic: '🧩 Комбинаторика: перестановки', date: getWeekDays()[2], time: '16:00', status: 'upcoming' },
-            { id: 4, topic: '🔢 Теория чисел: делимость', date: getWeekDays()[3], time: '18:00', status: 'upcoming' },
-            { id: 5, topic: '🧠 Логика: задачи на рассуждение', date: getWeekDays()[4], time: '16:00', status: 'upcoming' },
-            { id: 6, topic: '📊 Статистика: комбинации', date: getWeekDays()[5], time: '12:00', status: 'upcoming' },
+            { id: 1, topic: '🧮 Алгебра: уравнения', date: '15 марта 2026', status: 'completed' },
+            { id: 2, topic: '📐 Геометрия: треугольники', date: '17 марта 2026', status: 'in-progress' },
+            { id: 3, topic: '🧩 Комбинаторика: перестановки', date: '19 марта 2026', status: 'upcoming' },
+            { id: 4, topic: '🔢 Теория чисел: делимость', date: '22 марта 2026', status: 'upcoming' },
+            { id: 5, topic: '🧠 Логика: задачи на рассуждение', date: '24 марта 2026', status: 'upcoming' },
         ];
-
-        // Детали занятий (для страницы деталей)
-        const LESSON_DETAILS = {
-            1: {
-                tasks: ['Решить уравнение 3x + 7 = 22', 'Найти корни x² - 5x + 6 = 0', 'Решить систему уравнений'],
-                tests: ['Тест: линейные уравнения (10 вопросов)', 'Тест: квадратные уравнения (8 вопросов)'],
-                videos: ['Видео: как решать линейные уравнения', 'Видео: дискриминант — просто о сложном'],
-                materials: ['Шпаргалка по уравнениям', 'Сборник задач для самостоятельной работы']
-            },
-            2: {
-                tasks: ['Доказать, что треугольник равнобедренный', 'Найти площадь по трём сторонам', 'Построить медиану'],
-                tests: ['Тест: свойства треугольников', 'Тест: теорема Пифагора'],
-                videos: ['Видео: виды треугольников', 'Видео: площадь треугольника'],
-                materials: ['Формулы для треугольников', 'Таблица углов']
-            },
-            3: {
-                tasks: ['Сколькими способами можно расставить 5 книг?', 'Сколько перестановок букв в слове "МАТЕМАТИКА"?'],
-                tests: ['Тест: перестановки', 'Тест: сочетания'],
-                videos: ['Видео: комбинаторика для начинающих'],
-                materials: ['Формулы комбинаторики', 'Задачи на перестановки']
-            },
-            4: {
-                tasks: ['Найти НОД(144, 96)', 'Доказать, что число 2¹⁰⁰ не делится на 3'],
-                tests: ['Тест: признаки делимости', 'Тест: НОД и НОК'],
-                videos: ['Видео: теория чисел', 'Видео: признаки делимости'],
-                materials: ['Таблица простых чисел', 'Алгоритм Евклида']
-            },
-            5: {
-                tasks: ['Рыцари и лжецы: разобрать задачу', 'Логическая цепочка: 2→6→18→?'],
-                tests: ['Тест: логические задачи', 'Тест: закономерности'],
-                videos: ['Видео: как решать логические задачи'],
-                materials: ['Сборник логических задач']
-            },
-            6: {
-                tasks: ['Сколькими способами можно выбрать 3 из 5?', 'Задача про монеты'],
-                tests: ['Тест: комбинаторика (продвинутый)'],
-                videos: ['Видео: комбинаторика на практике'],
-                materials: ['Формулы сочетаний', 'Задачи с решениями']
-            }
-        };
-
-        // ============================================================
-        // СОСТОЯНИЕ
-        // ============================================================
-        let currentLessonId = null;
-
-        // ============================================================
-        // ФУНКЦИИ
-        // ============================================================
-
-        function formatDate(date) {
-            const d = new Date(date);
-            const days = ['Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'];
-            const months = ['янв', 'фев', 'мар', 'апр', 'май', 'июн', 'июл', 'авг', 'сен', 'окт', 'ноя', 'дек'];
-            return `${d.getDate()} ${months[d.getMonth()]}, ${days[d.getDay()]}`;
-        }
-
-        function formatDateShort(date) {
-            const d = new Date(date);
-            return `${d.getDate()}.${d.getMonth()+1}`;
-        }
 
         function getStatusBadge(status) {
             const map = {
@@ -787,203 +425,46 @@
             return map[status] || map['upcoming'];
         }
 
-        function getStatusText(status) {
-            const map = {
-                'completed': 'Завершено',
-                'in-progress': 'В процессе',
-                'upcoming': 'Предстоит'
-            };
-            return map[status] || 'Предстоит';
-        }
-
-        function isToday(date) {
-            const today = new Date();
-            const d = new Date(date);
-            return d.getDate() === today.getDate() &&
-                   d.getMonth() === today.getMonth() &&
-                   d.getFullYear() === today.getFullYear();
-        }
-
         // ============================================================
-        // ОТРИСОВКА РАСПИСАНИЯ
+        // ОТРИСОВКА ВСЕХ ЗАНЯТИЙ
         // ============================================================
-        function renderSchedule() {
-            const grid = document.getElementById('scheduleGrid');
-            const weekDays = getWeekDays();
-            const today = new Date();
 
-            grid.innerHTML = weekDays.map((day, i) => {
-                const isTodayDay = isToday(day);
-                const isWeekend = (i === 5 || i === 6);
-                const hasLesson = LESSONS.some(l => isToday(new Date(l.date)));
-                const dayName = ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс'][i];
+        function renderAllLessons() {
+            const tbody = document.getElementById('allLessonsBody');
 
-                let classes = 'schedule-day';
-                if (isTodayDay) classes += ' today';
-                if (isWeekend) classes += ' weekend';
-                if (hasLesson) classes += ' has-lesson';
-
-                return `
-                    <div class="${classes}">
-                        <div class="day-name">${dayName}</div>
-                        <div class="day-number">${day.getDate()}</div>
-                    </div>
-                `;
-            }).join('');
-        }
-
-        // ============================================================
-        // ОТРИСОВКА ТАБЛИЦЫ ЗАНЯТИЙ
-        // ============================================================
-        function renderLessonsTable(targetId, limit = null) {
-            const tbody = document.getElementById(targetId);
-            let lessons = [...LESSONS];
-            if (limit) {
-                lessons = lessons.slice(0, limit);
-            }
-
-            tbody.innerHTML = lessons.map(lesson => `
-                <tr onclick="openLessonDetail(${lesson.id})">
+            tbody.innerHTML = LESSONS.map(lesson => `
+                <tr onclick="window.location.href='zanytiya${lesson.id}.html'">
                     <td><span class="lesson-topic">${lesson.topic}</span></td>
-                    <td class="lesson-date">${formatDate(lesson.date)}</td>
-                    <td class="lesson-date">${lesson.time}</td>
+                    <td>${lesson.date}</td>
                     <td class="lesson-status">${getStatusBadge(lesson.status)}</td>
                     <td style="text-align:center;">
-                        <button class="btn-small" onclick="event.stopPropagation(); openLessonDetail(${lesson.id})">
+                        <a href="zanytiya${lesson.id}.html" class="btn-small" onclick="event.stopPropagation();">
                             <i class="fas fa-arrow-right"></i>
-                        </button>
+                        </a>
                     </td>
                 </tr>
             `).join('');
         }
 
         // ============================================================
-        // СТРАНИЦА ДЕТАЛЕЙ ЗАНЯТИЯ
-        // ============================================================
-        function openLessonDetail(id) {
-            const lesson = LESSONS.find(l => l.id === id);
-            if (!lesson) return;
-
-            currentLessonId = id;
-            const details = LESSON_DETAILS[id] || { tasks: [], tests: [], videos: [], materials: [] };
-
-            document.getElementById('detailTitle').textContent = `Занятие: ${lesson.topic.replace(/^[^\s]+\s/, '')}`;
-            document.getElementById('detailStatus').textContent = getStatusText(lesson.status);
-            document.getElementById('detailStatus').className = 'badge ' + 
-                (lesson.status === 'completed' ? 'badge-green' : 
-                 lesson.status === 'in-progress' ? 'badge-primary' : 'badge-gray');
-            document.getElementById('detailDate').textContent = `📅 ${formatDate(lesson.date)}, ${lesson.time}`;
-
-            // Задания
-            document.getElementById('detailTasks').innerHTML = details.tasks.map(t => `
-                <li>
-                    <span class="item-icon"><i class="fas fa-pencil-alt"></i></span>
-                    <span>${t}</span>
-                </li>
-            `).join('') || '<li style="color:var(--text-light);">Нет заданий</li>';
-
-            // Тесты
-            document.getElementById('detailTests').innerHTML = details.tests.map(t => `
-                <li>
-                    <span class="item-icon"><i class="fas fa-check-circle"></i></span>
-                    <span>${t}</span>
-                </li>
-            `).join('') || '<li style="color:var(--text-light);">Нет тестов</li>';
-
-            // Видео
-            document.getElementById('detailVideos').innerHTML = details.videos.map(v => `
-                <li>
-                    <span class="item-icon"><i class="fas fa-video"></i></span>
-                    <span>${v}</span>
-                </li>
-            `).join('') || '<li style="color:var(--text-light);">Нет видео</li>';
-
-            // Материалы
-            document.getElementById('detailMaterials').innerHTML = details.materials.map(m => `
-                <li>
-                    <span class="item-icon"><i class="fas fa-file-alt"></i></span>
-                    <span>${m}</span>
-                </li>
-            `).join('') || '<li style="color:var(--text-light);">Нет материалов</li>';
-
-            navigateTo('lesson-detail');
-        }
-
-        // ============================================================
-        // НАВИГАЦИЯ
-        // ============================================================
-        function navigateTo(page) {
-            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-            const target = document.getElementById('page-' + page);
-            if (target) target.classList.add('active');
-
-            document.querySelectorAll('.nav-menu a').forEach(a => a.classList.remove('active'));
-            const navLink = document.querySelector(`.nav-menu a[data-page="${page}"]`);
-            if (navLink) navLink.classList.add('active');
-
-            // Закрываем бургер
-            document.getElementById('navMenu').classList.remove('open');
-
-            // Прокрутка вверх
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-
-        // ============================================================
-        // ОБРАБОТЧИКИ СОБЫТИЙ
+        // БУРГЕР-МЕНЮ
         // ============================================================
 
-        // Бургер-меню
         document.getElementById('burgerBtn').addEventListener('click', () => {
             document.getElementById('navMenu').classList.toggle('open');
         });
 
-        // Навигация по клику
-        document.querySelectorAll('.nav-menu a[data-page]').forEach(a => {
-            a.addEventListener('click', (e) => {
-                e.preventDefault();
-                navigateTo(a.dataset.page);
+        document.querySelectorAll('.nav-menu a').forEach(a => {
+            a.addEventListener('click', () => {
+                document.getElementById('navMenu').classList.remove('open');
             });
-        });
-
-        // Кнопка "Все занятия" на главной
-        document.getElementById('viewAllLessonsBtn').addEventListener('click', (e) => {
-            e.preventDefault();
-            navigateTo('lessons');
-        });
-
-        // Кнопка "Статистика" на главной
-        document.getElementById('viewStatsBtn').addEventListener('click', (e) => {
-            e.preventDefault();
-            navigateTo('stats');
-        });
-
-        // Кнопка "Назад" на странице деталей
-        document.getElementById('backToLessonsBtn').addEventListener('click', (e) => {
-            e.preventDefault();
-            navigateTo('lessons');
-        });
-
-        document.getElementById('backToAllLessonsBtn2').addEventListener('click', (e) => {
-            e.preventDefault();
-            navigateTo('lessons');
-        });
-
-        // Логотип на главную
-        document.getElementById('homeLink').addEventListener('click', (e) => {
-            e.preventDefault();
-            navigateTo('home');
         });
 
         // ============================================================
         // ИНИЦИАЛИЗАЦИЯ
         // ============================================================
 
-        renderSchedule();
-        renderLessonsTable('lessonsTableBody', 4); // На главной показываем 4 занятия
-        renderLessonsTable('allLessonsBody'); // На странице "Все занятия" — все
-
-        // Открываем главную по умолчанию
-        navigateTo('home');
+        renderAllLessons();
     </script>
 
 </body>
