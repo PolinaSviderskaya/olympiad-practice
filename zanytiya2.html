@@ -1,0 +1,1064 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Занятие №2 — Истинные и ложные высказывания — Олимпиадный практикум</title>
+    
+    <!-- Шрифты -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@400;500;600;700&family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+    
+    <!-- Font Awesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    
+    <style>
+        /* ============================================================
+           ДИЗАЙН-СИСТЕМА
+           ============================================================ */
+        :root {
+            --primary: #8D0B0D;
+            --primary-light: #FBC5D9;
+            --bg-page: #FAF6F3;
+            --bg-white: #FFFFFF;
+            --text-primary: #1a1a1a;
+            --text-secondary: #555555;
+            --text-light: #999999;
+            --shadow-color: #d0c8c4;
+            --border-color: #e8e0dc;
+            --success: #27ae60;
+            --error: #c0392b;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-page);
+            color: var(--text-primary);
+            padding-top: 70px;
+            min-height: 100vh;
+            font-size: 1.1rem;
+        }
+
+        h1, h2, h3, .page-title {
+            font-family: 'Playfair Display', serif;
+        }
+
+        .card {
+            background: var(--bg-white);
+            border-radius: 32px;
+            padding: 2rem;
+            box-shadow: 0 8px 0 var(--shadow-color), 0 12px 28px rgba(0,0,0,0.06);
+            border: 1px solid var(--border-color);
+            transition: 0.3s;
+        }
+        .card:hover {
+            transform: translateY(-4px);
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: #FFFFFF;
+            border: none;
+            padding: 0.8rem 2rem;
+            border-radius: 60px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            transition: 0.25s;
+            box-shadow: 0 8px 20px rgba(141,11,13,0.2);
+            text-decoration: none;
+        }
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 28px rgba(141,11,13,0.35);
+        }
+
+        .btn-secondary {
+            background: var(--primary-light);
+            color: #000;
+            border: none;
+            padding: 0.8rem 2rem;
+            border-radius: 60px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: 0.25s;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+        .btn-secondary:hover {
+            background: #f5b2cc;
+            transform: translateY(-3px);
+        }
+
+        .btn-small {
+            background: var(--primary-light);
+            color: #000;
+            border: none;
+            padding: 0.4rem 1.2rem;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: 0.2s;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+        .btn-small:hover {
+            background: #f5b2cc;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 0.2rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+        .badge-primary { background: var(--primary); color: #fff; }
+        .badge-pink { background: var(--primary-light); color: #000; }
+        .badge-green { background: var(--success); color: #fff; }
+        .badge-gray { background: var(--border-color); color: var(--text-secondary); }
+
+        /* ---------- КНОПКА ПОКАЗАТЬ ОТВЕТ ---------- */
+        .answer-toggle {
+            margin-top: 0.8rem;
+            font-size: 0.9rem;
+        }
+        .answer-hidden {
+            display: none;
+            margin-top: 0.8rem;
+            padding: 1.2rem;
+            background: #f9f6f4;
+            border-radius: 16px;
+            border-left: 4px solid var(--primary);
+            font-size: 1.05rem;
+        }
+        .answer-hidden.show {
+            display: block;
+        }
+
+        /* ---------- РАЗДЕЛИТЕЛЬ ---------- */
+        .divider {
+            border: none;
+            border-top: 2px dashed var(--border-color);
+            margin: 2.5rem 0;
+        }
+
+        /* ---------- ДОМАШНЕЕ ЗАДАНИЕ ---------- */
+        .homework-title {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 800;
+            text-align: center;
+            font-size: 2rem;
+            color: var(--primary);
+            margin: 2.5rem 0 1.5rem;
+        }
+
+        /* ============================================================
+           НАВИГАЦИЯ
+           ============================================================ */
+        .navbar {
+            background: #ffffff;
+            padding: 0.6rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+            border-bottom: 3px solid var(--primary-light);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            min-height: 60px;
+        }
+
+        .nav-left {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .nav-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            font-weight: 700;
+            text-decoration: none;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .nav-title-icon { font-size: 1.5rem; }
+        .nav-title span span { color: var(--primary); }
+
+        .nav-menu {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+        .nav-menu a {
+            text-decoration: none;
+            color: var(--text-primary);
+            font-weight: 600;
+            font-size: 0.95rem;
+            padding: 0.5rem 0.2rem;
+            border-bottom: 3px solid transparent;
+            transition: 0.25s;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+        .nav-menu a:hover,
+        .nav-menu a.active {
+            border-bottom-color: var(--primary);
+            color: var(--primary);
+        }
+
+        .nav-school {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+            text-align: right;
+            line-height: 1.3;
+        }
+        .nav-school .school-name {
+            color: var(--primary);
+            font-weight: 700;
+        }
+
+        .burger-btn {
+            display: none;
+            font-size: 1.8rem;
+            cursor: pointer;
+            color: var(--primary);
+            background: none;
+            border: none;
+            padding: 0.2rem 0.5rem;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 2rem;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            border-top: 2px solid var(--primary-light);
+            margin-top: 2rem;
+            background: rgba(255, 255, 255, 0.5);
+        }
+
+        .container {
+            max-width: 920px;
+            margin: 0 auto;
+            padding: 0 1.5rem 2rem;
+        }
+
+        .page-title {
+            font-size: 2.6rem;
+            margin-top: 0.5rem;
+            margin-bottom: 0.2rem;
+        }
+        .page-subtitle {
+            color: var(--text-secondary);
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+        }
+
+        /* ============================================================
+           ДЕТАЛИ ЗАНЯТИЯ
+           ============================================================ */
+        .lesson-detail-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-bottom: 1.5rem;
+        }
+        .lesson-detail-header .back-btn {
+            font-size: 1.6rem;
+            color: var(--primary);
+            text-decoration: none;
+            transition: 0.2s;
+        }
+        .lesson-detail-header .back-btn:hover {
+            transform: translateX(-4px);
+        }
+
+        .task-block {
+            margin-bottom: 2.5rem;
+        }
+        .task-block .task-number {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 800;
+            color: var(--primary);
+            font-size: 1.3rem;
+        }
+        .task-block .task-text {
+            font-size: 1.15rem;
+            line-height: 1.8;
+            margin: 0.5rem 0;
+        }
+        .task-block .task-text strong {
+            color: var(--primary);
+        }
+        .task-block .task-image {
+            max-width: 100%;
+            border-radius: 16px;
+            border: 1px solid var(--border-color);
+            margin: 0.8rem 0;
+        }
+
+        .solution-block {
+            margin-top: 1rem;
+            padding: 1.5rem;
+            background: #f9f6f4;
+            border-radius: 16px;
+            border-left: 4px solid var(--primary);
+        }
+        .solution-block .solution-title {
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+        .solution-block .solution-text {
+            line-height: 1.8;
+            font-size: 1.05rem;
+        }
+
+        .homework-section {
+            margin-top: 2rem;
+            padding: 2.5rem;
+            background: #f9f6f4;
+            border-radius: 32px;
+            border: 2px solid var(--primary-light);
+        }
+        .homework-section .hw-item {
+            margin-bottom: 1.8rem;
+            padding-bottom: 1.8rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+        .homework-section .hw-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+        .homework-section .hw-number {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 800;
+            color: var(--primary);
+            font-size: 1.2rem;
+        }
+        .homework-section .hw-text {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin: 0.3rem 0;
+        }
+        .homework-section .hw-image {
+            max-width: 100%;
+            border-radius: 16px;
+            border: 1px solid var(--border-color);
+            margin: 0.5rem 0;
+        }
+
+        .tips-list {
+            list-style: none;
+            padding: 0;
+            counter-reset: tip-counter;
+        }
+        .tips-list li {
+            counter-increment: tip-counter;
+            padding: 0.6rem 0;
+            border-bottom: 1px solid var(--border-color);
+            font-size: 1.05rem;
+            line-height: 1.7;
+            display: flex;
+            gap: 0.8rem;
+        }
+        .tips-list li:last-child {
+            border-bottom: none;
+        }
+        .tips-list li::before {
+            content: counter(tip-counter) ".";
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 800;
+            color: var(--primary);
+            flex-shrink: 0;
+            min-width: 28px;
+        }
+
+        /* ============================================================
+           АДАПТИВНОСТЬ
+           ============================================================ */
+        @media (max-width: 768px) {
+            body { padding-top: 55px; }
+            .navbar { padding: 0.4rem 1rem; min-height: 50px; flex-wrap: wrap; }
+            .nav-title { font-size: 1rem; }
+            .nav-title span span { display: none; }
+            .nav-school { font-size: 0.7rem; }
+            .burger-btn { display: block; }
+            .nav-menu {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: #ffffff;
+                flex-direction: column;
+                padding: 1rem;
+                gap: 0.3rem;
+                border-bottom: 3px solid var(--primary-light);
+                box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+            }
+            .nav-menu.open { display: flex; }
+            .nav-menu a {
+                font-size: 0.9rem;
+                padding: 0.6rem 0;
+                width: 100%;
+                text-align: center;
+                border-bottom: 1px solid #f0ecea;
+                justify-content: center;
+            }
+            .nav-menu a:last-child { border-bottom: none; }
+
+            .container { padding: 0 0.8rem 1.5rem; }
+            .page-title { font-size: 2rem; }
+            .task-block .task-text { font-size: 1.05rem; }
+            .homework-title { font-size: 1.6rem; }
+            .homework-section .hw-text { font-size: 1rem; }
+            .tips-list li { font-size: 0.95rem; }
+        }
+
+        @media (max-width: 480px) {
+            body { padding-top: 48px; }
+            .nav-title { font-size: 0.85rem; }
+            .nav-school { font-size: 0.6rem; }
+            .burger-btn { font-size: 1.4rem; }
+            .page-title { font-size: 1.6rem; }
+            .homework-section { padding: 1.5rem; }
+            .homework-section .hw-text { font-size: 0.95rem; }
+            .solution-block .solution-text { font-size: 0.95rem; }
+            .tips-list li { font-size: 0.9rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ========== НАВИГАЦИЯ ========== -->
+    <nav class="navbar">
+        <div class="nav-left">
+            <button class="burger-btn" id="burgerBtn" aria-label="Меню">
+                <i class="fas fa-bars"></i>
+            </button>
+            <a href="index.html" class="nav-title">
+                <span class="nav-title-icon">🏆</span>
+                <span>Олимпиадный <span>практикум</span></span>
+            </a>
+        </div>
+        <div class="nav-menu" id="navMenu">
+            <a href="index.html"><i class="fas fa-home"></i> Главная</a>
+            <a href="zanytiya.html"><i class="fas fa-tasks"></i> Занятия</a>
+        </div>
+        <div class="nav-school">
+            МАОУ СШ №151<br />
+            <span class="school-name">г. Красноярска</span>
+        </div>
+    </nav>
+
+    <!-- ========== ОСНОВНОЙ КОНТЕНТ ========== -->
+    <main class="container">
+
+        <div class="lesson-detail-header">
+            <a href="zanytiya.html" class="back-btn" title="Назад к занятиям">
+                <i class="fas fa-arrow-left"></i>
+            </a>
+            <h1 class="page-title" style="margin:0;">🧠 Истинные и ложные высказывания. Рыцари, лжецы, хитрецы</h1>
+            <span class="badge badge-primary">🔄 В процессе</span>
+        </div>
+        <p class="page-subtitle">📅 17 марта 2026</p>
+
+        <!-- ============================================================
+        ВСТУПЛЕНИЕ
+        ============================================================ -->
+        <div class="card" style="margin-bottom: 2.5rem;">
+            <p style="font-size: 1.15rem; line-height: 1.8;">
+                В задачах такого типа необходимо уметь <strong>логически рассуждать</strong> и <strong>перебирать всевозможные варианты</strong>.
+                Часто удобно отбросить заведомо неподходящие варианты и рассмотреть оставшиеся.
+            </p>
+            <p style="font-size: 1.15rem; line-height: 1.8; margin-top: 0.5rem;">
+                Обращаем ваше внимание на то, что если даже вы нашли непротиворечивый вариант, то это не значит, что можно заканчивать решение задачи. Нет, необходимо <strong>рассмотреть все возможные варианты</strong> или доказать, что других решений нет.
+            </p>
+            <p style="font-size: 1.15rem; line-height: 1.8; margin-top: 0.5rem;">
+                Большинство задач данного раздела будут про <strong>рыцарей</strong> (они всегда говорят правду), <strong>лжецов</strong> (всегда лгут) и <strong>хитрецов</strong> (иногда говорят правду, а иногда лгут).
+            </p>
+        </div>
+
+        <hr class="divider" />
+
+        <!-- ============================================================
+        ЗАДАЧА-КЛЮЧ
+        ============================================================ -->
+        <div class="task-block">
+            <div class="task-number">⭐ Задача-ключ</div>
+            <p class="task-text">
+                На развилке двух тропинок в лесу ты встретил очень хитрую Лису, которая <strong>всегда лжёт</strong>. Лиса знает, какая из двух тропинок ведёт к деревне, а какая — в болото.
+            </p>
+            <p class="task-text">
+                <strong>Попробуй придумать один вопрос</strong>, на который может быть только ответ «да» или «нет», позволяющий по ответу определить, какая тропинка ведёт в деревню. <strong>Объясни, почему твой вариант подходит.</strong>
+            </p>
+            <img src="images/img2.1.png" alt="Развилка дорог" class="task-image" style="max-width: 400px;" />
+
+            <button class="btn-small answer-toggle" onclick="toggleAnswer('keySolution')">
+                <i class="fas fa-lightbulb"></i> Показать решение
+            </button>
+            <div class="answer-hidden" id="keySolution">
+                <div class="solution-block">
+                    <div class="solution-title">📝 Решение:</div>
+                    <div class="solution-text">
+                        <p><strong>Назовём тропинки левой и правой.</strong> Можно задать вопрос про левую тропинку:</p>
+                        <p style="font-size: 1.2rem; font-weight: 700; color: var(--primary); text-align: center; margin: 0.5rem 0;">
+                            «Эта тропинка ведёт в деревню?»
+                        </p>
+                        <p><strong>Объясним, почему этот вопрос подходит:</strong></p>
+                        <p>1) Если Лиса ответит <strong>«да»</strong>, то это ложь, эта тропинка ведёт в болото. Значит, в деревню ведёт <strong>правая</strong> тропинка.</p>
+                        <p>2) Если Лиса ответит <strong>«нет»</strong>, то это ложь, значит, эта тропинка ведёт в деревню.</p>
+                        <p style="margin-top: 0.5rem;">В обоих случаях по ответам Лисы можно <strong>однозначно определить</strong>, какая тропинка ведёт к деревне.</p>
+                        <p style="margin-top: 0.5rem;"><strong>Ответ:</strong> «Левая тропинка ведёт в деревню?»</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <hr class="divider" />
+
+        <!-- ============================================================
+        СТАТЬЯ И ВЫСКАЗЫВАНИЯ
+        ============================================================ -->
+        <div class="card" style="margin-bottom: 2.5rem;">
+            <p style="font-size: 1.15rem; line-height: 1.8;">
+                Чтобы узнать, что такое <strong>«высказывание»</strong>, <strong>«истинность и ложность высказывания»</strong>, ознакомься со следующей статьёй:
+            </p>
+            <p style="font-size: 1.1rem; margin-top: 0.5rem;">
+                <a href="https://foxford.ru/wiki/matematika/viskazivaniya?utm_referrer=https%3A%2F%2Fyandex.ru%2F" target="_blank" style="color: var(--primary); font-weight: 600; text-decoration: underline;">
+                    🔗 Foxford — Высказывания
+                </a>
+            </p>
+        </div>
+
+        <!-- ============================================================
+        ЗАДАНИЕ НА ВЫСКАЗЫВАНИЯ
+        ============================================================ -->
+        <div class="task-block">
+            <div class="task-number">📝 Задание</div>
+            <p class="task-text">
+                <strong>Выберите из всех предложений высказывания:</strong>
+            </p>
+            <div style="font-size: 1.1rem; line-height: 2; padding-left: 0.5rem;">
+                <p>а) Когда заканчиваются зимние каникулы?</p>
+                <p>б) Учебный год в России начинается 1 сентября.</p>
+                <p>в) Какая красота!</p>
+                <p>г) Каир — столица Египта.</p>
+                <p>д) Сумма пяти и восемнадцати.</p>
+                <p>е) Трижды восемь — двадцать восемь.</p>
+            </div>
+            <p class="task-text" style="margin-top: 0.5rem;">
+                <strong>Какие это высказывания: истинные или ложные?</strong>
+            </p>
+            <button class="btn-small answer-toggle" onclick="toggleAnswer('statementsAnswer')">
+                <i class="fas fa-eye"></i> Показать ответ
+            </button>
+            <div class="answer-hidden" id="statementsAnswer">
+                <div class="solution-block">
+                    <div class="solution-title">📝 Ответ:</div>
+                    <div class="solution-text">
+                        <p><strong>Высказывания:</strong> б), г), е)</p>
+                        <p><strong>Не являются высказываниями:</strong> а), в), д)</p>
+                        <p style="margin-top: 0.5rem;"><strong>Истинность:</strong></p>
+                        <p>б) <strong>Истинное</strong> — учебный год в России действительно начинается 1 сентября.</p>
+                        <p>г) <strong>Истинное</strong> — Каир действительно столица Египта.</p>
+                        <p>е) <strong>Ложное</strong> — трижды восемь — это 24, а не 28.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <hr class="divider" />
+
+        <!-- ============================================================
+        СОВЕТЫ ПО РЕШЕНИЮ
+        ============================================================ -->
+        <div class="card" style="margin-bottom: 2.5rem;">
+            <h3 style="font-family: 'Playfair Display', serif; font-size: 1.5rem; margin-bottom: 0.8rem;">
+                💡 Советы по решению задач с высказываниями
+            </h3>
+            <ol class="tips-list">
+                <li>Если в задаче есть предложение, которое может быть истинным или ложным, то можно по очереди проверить обе возможности.</li>
+                <li>Если в задаче требуется придумать вопрос, то можно предложить варианты и выбрать тот, который подходит ко всем условиям задачи.</li>
+                <li>Если нужно придумать вопрос, на который один и тот же персонаж даёт разные ответы, то можно определить, что изменяется между вопросами со временем.</li>
+                <li>В задаче могут быть несколько предложений, которые могут быть истинными или ложными. Важно по очереди проверить всевозможные случаи (то есть сделать <strong>перебор различных вариантов</strong>).</li>
+            </ol>
+        </div>
+
+        <hr class="divider" />
+
+        <!-- ============================================================
+        ЗАДАЧА №1
+        ============================================================ -->
+        <div class="task-block">
+            <div class="task-number">Задача №1</div>
+            <p class="task-text">
+                Хитрая Лиса решила стать честной и стала работать журналистом. В статье о результатах забега, в котором участвовали три кролика — Белый, Серый и Рыжий — она написала:
+            </p>
+            <p class="task-text" style="font-style: italic; padding: 0.5rem 1rem; background: #f9f6f4; border-radius: 12px;">
+                «Белый Кролик прибежал на финиш первым», «Серый Кролик прибежал после него».
+            </p>
+            <p class="task-text">
+                Как ни старалась Лиса, а всё равно в <strong>одном из этих предложений написала ложь</strong>.
+                <br /><strong>Кто выиграл забег?</strong>
+            </p>
+            <button class="btn-small answer-toggle" onclick="toggleAnswer('answer1')">
+                <i class="fas fa-eye"></i> Показать ответ
+            </button>
+            <div class="answer-hidden" id="answer1">
+                <strong>Ответ:</strong> Рыжий кролик
+            </div>
+        </div>
+
+        <hr class="divider" />
+
+        <!-- ============================================================
+        ЗАДАЧА №2
+        ============================================================ -->
+        <div class="task-block">
+            <div class="task-number">Задача №2</div>
+            <p class="task-text">
+                До царя дошла весть, что кто-то из трёх богатырей убил Змея Горыныча. Приказал царь им явиться ко двору. Молвили богатыри:
+            </p>
+            <div style="font-size: 1.1rem; line-height: 2; padding-left: 0.5rem;">
+                <p><strong>Илья Муромец:</strong> «Змея убил Добрыня Никитич».</p>
+                <p><strong>Добрыня Никитич:</strong> «Змея убил Алёша Попович».</p>
+                <p><strong>Алёша Попович:</strong> «Я убил Змея».</p>
+            </div>
+            <p class="task-text">
+                Известно, что <strong>только один</strong> богатырь сказал правду, а двое других слукавили.
+                <br /><strong>Кто убил Змея?</strong>
+            </p>
+            <button class="btn-small answer-toggle" onclick="toggleAnswer('answer2')">
+                <i class="fas fa-eye"></i> Показать ответ
+            </button>
+            <div class="answer-hidden" id="answer2">
+                <strong>Ответ:</strong> Добрыня Никитич
+            </div>
+            <button class="btn-small answer-toggle" style="margin-top: 0.5rem;" onclick="toggleAnswer('solution2')">
+                <i class="fas fa-lightbulb"></i> Показать решение
+            </button>
+            <div class="answer-hidden" id="solution2">
+                <div class="solution-block">
+                    <div class="solution-title">📝 Решение:</div>
+                    <div class="solution-text">
+                        <p>Поскольку Добрыня Никитич и Алёша Попович утверждают <strong>одно и то же</strong> (что Змея убил Алёша), а правду сказал только один богатырь, они оба <strong>лукавят</strong>.</p>
+                        <p>Значит, правду сказал <strong>Илья Муромец</strong> и Змея убил <strong>Добрыня Никитич</strong>.</p>
+                        <p style="margin-top: 0.5rem;"><strong>Ответ:</strong> Змея Горыныча убил Добрыня Никитич.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <hr class="divider" />
+
+        <!-- ============================================================
+        ЗАДАЧА №3
+        ============================================================ -->
+        <div class="task-block">
+            <div class="task-number">Задача №3</div>
+            <p class="task-text">
+                <strong>Истинно или ложно высказывание:</strong> «Нет правил без исключения»?
+            </p>
+            <button class="btn-small answer-toggle" onclick="toggleAnswer('answer3')">
+                <i class="fas fa-eye"></i> Показать ответ
+            </button>
+            <div class="answer-hidden" id="answer3">
+                <strong>Ответ:</strong> ложно
+            </div>
+            <button class="btn-small answer-toggle" style="margin-top: 0.5rem;" onclick="toggleAnswer('solution3')">
+                <i class="fas fa-lightbulb"></i> Показать решение
+            </button>
+            <div class="answer-hidden" id="solution3">
+                <div class="solution-block">
+                    <div class="solution-title">📝 Решение:</div>
+                    <div class="solution-text">
+                        <p>Если правило <strong>«Нет правил без исключения»</strong> истинно, то для этого правила есть исключение, а именно должно существовать правило, в котором <strong>нет исключений</strong>.</p>
+                        <p>Получаем, что правило «Нет правил без исключения» <strong>ложно</strong>.</p>
+                        <p style="margin-top: 0.5rem;"><strong>Ответ:</strong> ложно.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <hr class="divider" />
+
+        <!-- ============================================================
+        ЗАДАЧА №4
+        ============================================================ -->
+        <div class="task-block">
+            <div class="task-number">Задача №4</div>
+            <p class="task-text">
+                Племя людоедов поймало Робинзона Крузо. Вождь сказал:
+            </p>
+            <p class="task-text" style="font-style: italic; padding: 0.5rem 1rem; background: #f9f6f4; border-radius: 12px;">
+                «Мы бы рады отпустить тебя, но по нашему закону ты сначала должен произнести какое-нибудь утверждение. Если оно окажется <strong>истинным</strong>, мы <strong>съедим тебя</strong>. Если оно окажется <strong>ложным</strong>, тебя <strong>съест наш лев</strong>».
+            </p>
+            <p class="task-text">
+                <strong>Помогите Робинзону.</strong>
+            </p>
+            <button class="btn-small answer-toggle" onclick="toggleAnswer('answer4')">
+                <i class="fas fa-eye"></i> Показать ответ
+            </button>
+            <div class="answer-hidden" id="answer4">
+                <strong>Ответ:</strong> «Меня съест ваш лев»
+            </div>
+            <button class="btn-small answer-toggle" style="margin-top: 0.5rem;" onclick="toggleAnswer('solution4')">
+                <i class="fas fa-lightbulb"></i> Показать решение
+            </button>
+            <div class="answer-hidden" id="solution4">
+                <div class="solution-block">
+                    <div class="solution-title">📝 Решение:</div>
+                    <div class="solution-text">
+                        <p>Робинзон может сказать: <strong>«Меня съест ваш лев»</strong>.</p>
+                        <p><strong>Покажем, что это утверждение не может оказаться истинным и не может оказаться ложным:</strong></p>
+                        <p>• Если это утверждение <strong>истинно</strong>, то Робинзона должны съесть людоеды, но тогда его не съест лев и утверждение окажется <strong>ложным</strong>.</p>
+                        <p>• Если это утверждение <strong>ложно</strong>, то Робинзона должен съесть лев, но тогда это утверждение окажется <strong>истинным</strong>.</p>
+                        <p style="margin-top: 0.5rem;">Так как утверждение не оказалось истинным, то Робинзона <strong>не съедят людоеды</strong>. Так как утверждение не оказалось ложным, то Робинзона <strong>не съест лев</strong>.</p>
+                        <p style="margin-top: 0.5rem;"><strong>Ответ:</strong> Робинзон должен сказать: «Меня съест ваш лев».</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <hr class="divider" />
+
+        <!-- ============================================================
+        ЗАДАЧА №5
+        ============================================================ -->
+        <div class="task-block">
+            <div class="task-number">Задача №5</div>
+            <p class="task-text">
+                В Стране чудес проводилось следствие по делу об украденной муке. На суде Мартовский Заяц заявил, что муку украл Болванщик. В свою очередь Болванщик и Соня дали показания, в которых указали на вора, но эти показания по каким-то причинам не были записаны.
+            </p>
+            <p class="task-text">
+                В ходе судебного заседания выяснилось, что муку украл <strong>лишь один</strong> из трёх подсудимых и что <strong>только он дал правдивые показания</strong>.
+                <br /><strong>Кто украл муку?</strong>
+            </p>
+            <button class="btn-small answer-toggle" onclick="toggleAnswer('answer5')">
+                <i class="fas fa-eye"></i> Показать ответ
+            </button>
+            <div class="answer-hidden" id="answer5">
+                <strong>Ответ:</strong> Соня
+            </div>
+            <button class="btn-small answer-toggle" style="margin-top: 0.5rem;" onclick="toggleAnswer('solution5')">
+                <i class="fas fa-lightbulb"></i> Показать решение
+            </button>
+            <div class="answer-hidden" id="solution5">
+                <div class="solution-block">
+                    <div class="solution-title">📝 Решение:</div>
+                    <div class="solution-text">
+                        <p>Если бы вором был <strong>Мартовский Заяц</strong>, то он указал бы на себя, значит, Мартовский Заяц <strong>не вор</strong>.</p>
+                        <p>Так как <strong>только вор сказал правду</strong>, то Мартовский Заяц солгал, значит, <strong>Болванщик не вор</strong>.</p>
+                        <p>Остаётся единственный возможный вариант: <strong>Соня — вор</strong>.</p>
+                        <p style="margin-top: 0.5rem;"><strong>Ответ:</strong> муку украла Соня.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <hr class="divider" />
+
+        <!-- ============================================================
+        ДОПОЛНИТЕЛЬНЫЕ ЗАДАЧИ
+        ============================================================ -->
+        <div style="text-align: center; margin: 2rem 0 1.5rem;">
+            <span style="font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 1.8rem; color: var(--primary);">
+                ➕ Дополнительные задачи
+            </span>
+        </div>
+
+        <!-- ============================================================
+        ЗАДАЧА №6
+        ============================================================ -->
+        <div class="task-block">
+            <div class="task-number">Задача №6</div>
+            <p class="task-text">
+                Ковбой Джо приобрёл в салуне несколько бутылок Кока-Колы по <strong>40 центов</strong> за штуку, несколько сэндвичей по <strong>24 цента</strong> и <strong>2 бифштекса</strong>. Бармен сказал, что с него <strong>20 долларов 5 центов</strong>.
+            </p>
+            <p class="task-text">
+                Ковбой Джо высказал бармену всё, что он думает о его умении считать.
+                <br /><strong>Действительно ли бармен ошибся?</strong>
+            </p>
+            <button class="btn-small answer-toggle" onclick="toggleAnswer('answer6')">
+                <i class="fas fa-eye"></i> Показать ответ
+            </button>
+            <div class="answer-hidden" id="answer6">
+                <div class="solution-block">
+                    <div class="solution-title">📝 Решение:</div>
+                    <div class="solution-text">
+                        <p>Пусть:</p>
+                        <p>• x — число бутылок Колы,</p>
+                        <p>• y — число сэндвичей,</p>
+                        <p>• z — цена одного бифштекса в центах (целое число).</p>
+                        <p style="margin-top: 0.5rem;">Тогда: <strong>40x + 24y + 2z = 2005</strong></p>
+                        <p><strong>Смотрим на левую часть:</strong></p>
+                        <p>• 40x — делится на 2 (чётное),</p>
+                        <p>• 24y — делится на 2 (чётное),</p>
+                        <p>• 2z — делится на 2 (чётное).</p>
+                        <p>Значит, левая часть всегда <strong>чётная</strong> (сумма трёх чётных чисел).</p>
+                        <p>А правая часть <strong>2005 — нечётная</strong> (заканчивается на 5).</p>
+                        <p style="margin-top: 0.5rem;"><strong>Вывод:</strong> равенство чётного и нечётного невозможно. Значит, бармен точно ошибся.</p>
+                        <p style="margin-top: 0.5rem;"><strong>Ответ:</strong> да, бармен ошибся.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <hr class="divider" />
+
+        <!-- ============================================================
+        ЗАДАЧА №7
+        ============================================================ -->
+        <div class="task-block">
+            <div class="task-number">Задача №7</div>
+            <p class="task-text">
+                Когда учительница ругала Дениса за плохой почерк, он сказал:
+            </p>
+            <p class="task-text" style="font-style: italic; padding: 0.5rem 1rem; background: #f9f6f4; border-radius: 12px;">
+                «У всех великих людей был плохой почерк, значит, я великий человек.»
+            </p>
+            <p class="task-text">
+                <strong>Прав ли он?</strong>
+            </p>
+            <button class="btn-small answer-toggle" onclick="toggleAnswer('answer7')">
+                <i class="fas fa-eye"></i> Показать ответ
+            </button>
+            <div class="answer-hidden" id="answer7">
+                <div class="solution-block">
+                    <div class="solution-title">📝 Решение:</div>
+                    <div class="solution-text">
+                        <p>Это классическая ошибка <strong>«обратного следования»</strong>.</p>
+                        <p>В логике это выглядит так:</p>
+                        <p style="font-style: italic;">Если человек великий → у него плохой почерк.</p>
+                        <p>Но из того, что у человека плохой почерк, <strong>НЕ следует</strong>, что он великий.</p>
+                        <p>Плохой почерк может быть у кого угодно, даже у того, кто вообще не пишет.</p>
+                        <p style="margin-top: 0.5rem;"><strong>Ответ:</strong> Денис не прав. Его вывод логически неверен.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <hr class="divider" />
+
+        <!-- ============================================================
+        ЗАДАЧА №8
+        ============================================================ -->
+        <div class="task-block">
+            <div class="task-number">Задача №8</div>
+            <p class="task-text">
+                У императора украли перец. Как известно, <strong>те, кто крадут перец, всегда лгут</strong>. Пресс-секретарь заявил, что знает, кто украл перец.
+                <br /><strong>Виновен ли он?</strong>
+            </p>
+            <button class="btn-small answer-toggle" onclick="toggleAnswer('answer8')">
+                <i class="fas fa-eye"></i> Показать ответ
+            </button>
+            <div class="answer-hidden" id="answer8">
+                <div class="solution-block">
+                    <div class="solution-title">📝 Решение:</div>
+                    <div class="solution-text">
+                        <p><strong>Рассмотрим два варианта:</strong></p>
+                        <p>1️⃣ <strong>Пресс-секретарь говорит правду</strong> → он действительно знает вора. Но если он говорит правду, значит он <strong>не крал перец</strong> (потому что воры всегда лгут, а он не лжёт). Значит, он не виновен.</p>
+                        <p>2️⃣ <strong>Пресс-секретарь лжёт</strong> → тогда он не знает вора (потому что его заявление ложно). Но если он лжёт, то по условию он обязан быть вором (так как воры всегда лгут). Значит, он виновен.</p>
+                        <p style="margin-top: 0.5rem;"><strong>Но есть нюанс:</strong></p>
+                        <p>В условии сказано: <em>«Те, кто крадут перец, всегда лгут»</em>.</p>
+                        <p><strong>Обратное</strong> («лгуны всегда крадут перец») <strong>не утверждается</strong>! Человек может лгать по другим причинам, но перец не красть.</p>
+                        <p style="margin-top: 0.5rem;">Поэтому из его фразы <strong>нельзя сделать однозначный вывод</strong>.</p>
+                        <p style="margin-top: 0.5rem;"><strong>Ответ:</strong> нельзя определить, виновен ли он.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <hr class="divider" />
+
+        <!-- ============================================================
+        ДОМАШНЕЕ ЗАДАНИЕ
+        ============================================================ -->
+        <div class="homework-title">📖 Домашнее задание</div>
+
+        <div class="homework-section">
+
+            <!-- №9 -->
+            <div class="hw-item">
+                <div class="hw-number">Задача №9</div>
+                <div class="hw-text">
+                    Антон всегда говорит правду, а его брат Максим всегда лжёт.
+                    <br /><strong>Что каждый из них ответит на вопрос: «Твой брат врёт?»</strong>
+                </div>
+                <button class="btn-small answer-toggle" onclick="toggleAnswer('hw9')">
+                    <i class="fas fa-eye"></i> Показать решение
+                </button>
+                <div class="answer-hidden" id="hw9">
+                    <div class="solution-block">
+                        <div class="solution-title">📝 Решение:</div>
+                        <div class="solution-text">
+                            <p>Антон честно скажет, что его брат врёт, а Максим соврёт, что его брат врёт.</p>
+                            <p style="margin-top: 0.5rem;"><strong>Ответ:</strong> оба ответят «да».</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- №10 -->
+            <div class="hw-item">
+                <div class="hw-number">Задача №10</div>
+                <div class="hw-text">
+                    Дима загадал число от 1 до 100, а девочки Вера и Надя стали его угадывать.
+                    <br />Вера сказала: «Загаданное число наверняка меньше 60».
+                    <br />Надя сказала: «А я думаю, что число меньше 59».
+                    <br />Но <strong>только одна из девочек оказалась права</strong>.
+                    <br /><strong>Какое число загадал Дима?</strong>
+                </div>
+                <button class="btn-small answer-toggle" onclick="toggleAnswer('hw10')">
+                    <i class="fas fa-eye"></i> Показать решение
+                </button>
+                <div class="answer-hidden" id="hw10">
+                    <div class="solution-block">
+                        <div class="solution-title">📝 Решение:</div>
+                        <div class="solution-text">
+                            <p>Если права <strong>Надя</strong>, то права и <strong>Вера</strong> (потому что если число меньше 59, то оно точно меньше 60).</p>
+                            <p>Значит, Надя ошиблась и загадано число <strong>59</strong>.</p>
+                            <p style="margin-top: 0.5rem;"><strong>Ответ:</strong> 59.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- №11 -->
+            <div class="hw-item">
+                <div class="hw-number">Задача №11</div>
+                <div class="hw-text">
+                    В три банки с надписями <strong>«малиновое»</strong>, <strong>«клубничное»</strong> и <strong>«малиновое или клубничное»</strong> налили смородиновое, малиновое и клубничное варенье.
+                    <br /><strong>Все надписи оказались неправильными.</strong>
+                    <br /><strong>Какое варенье налили в банку «клубничное»?</strong>
+                </div>
+                <button class="btn-small answer-toggle" onclick="toggleAnswer('hw11')">
+                    <i class="fas fa-eye"></i> Показать решение
+                </button>
+                <div class="answer-hidden" id="hw11">
+                    <div class="solution-block">
+                        <div class="solution-title">📝 Решение:</div>
+                        <div class="solution-text">
+                            <p>Так как все надписи неправильные, то в третьей банке <strong>не может быть</strong> ни малиновое, ни клубничное варенье. Значит, там <strong>смородиновое</strong> варенье.</p>
+                            <p>Тогда клубничное и малиновое должны быть в первых двух банках. А так как надписи неправильные, то в банке <strong>«клубничное»</strong> на самом деле <strong>малиновое</strong> варенье.</p>
+                            <p style="margin-top: 0.5rem;"><strong>Ответ:</strong> малиновое.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- №12 -->
+            <div class="hw-item" style="border-bottom: none; margin-bottom: 0; padding-bottom: 0;">
+                <div class="hw-number">Задача №12*</div>
+                <div class="hw-text">
+                    Четыре жителя острова разговаривают между собой:
+                    <br /><strong>Беня</strong> (Вене): «Ты лжец».
+                    <br /><strong>Женя</strong> (Бене): «Сам ты лжец».
+                    <br /><strong>Сеня</strong> (Жене): «Да они оба лжецы. Впрочем, и ты тоже».
+                    <br /><strong>Кто из них лжец, а кто рыцарь?</strong>
+                </div>
+                <button class="btn-small answer-toggle" onclick="toggleAnswer('hw12')">
+                    <i class="fas fa-eye"></i> Показать решение
+                </button>
+                <div class="answer-hidden" id="hw12">
+                    <div class="solution-block">
+                        <div class="solution-title">📝 Решение:</div>
+                        <div class="solution-text">
+                            <p><strong>Идея:</strong> Перебрать все варианты и отобрать непротиворечивые. Перебор начать с предположения о том, что Сеня — рыцарь.</p>
+                            <p><strong>Решение:</strong></p>
+                            <p>Так как Сеня выдал наибольшее количество информации, перебор начнём с него.</p>
+                            <p>• Если <strong>Сеня — рыцарь</strong>, то согласно его высказываниям трое остальных — лжецы. Но тогда высказывание Бени о том, что Веня — лжец, <strong>истинно</strong>. Противоречие. Значит, Сеня — <strong>лжец</strong>.</p>
+                            <p>• Так как Сеня — лжец, то ложны его высказывания «Да они оба лжецы» (о Вене и Бене) и «Впрочем, и ты тоже» (о Жене).</p>
+                            <p>Получается, что <strong>хотя бы один</strong> среди Вени и Бени является рыцарем, а <strong>Женя точно рыцарь</strong>.</p>
+                            <p>• Так как Женя — рыцарь, то его высказывание истинно, следовательно, <strong>Беня — лжец</strong>.</p>
+                            <p>• Но Беня сказал о Вене, что тот лжец, значит, <strong>Веня — рыцарь</strong>.</p>
+                            <p style="margin-top: 0.5rem;"><strong>Ответ:</strong> Веня и Женя — рыцари, а Беня и Сеня — лжецы.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- ============================================================
+        КНОПКА НАЗАД
+        ============================================================ -->
+        <div style="margin-top: 2rem;">
+            <a href="zanytiya.html" class="btn-secondary">
+                <i class="fas fa-arrow-left"></i> Ко всем занятиям
+            </a>
+        </div>
+
+    </main>
+
+    <!-- ========== ФУТЕР ========== -->
+    <footer class="footer">
+        <p>🏆 Олимпиадный практикум &copy; 2026</p>
+    </footer>
+
+    <!-- ============================================================
+    JAVASCRIPT
+    ============================================================ -->
+    <script>
+        // ============================================================
+        // ФУНКЦИЯ ДЛЯ ПОКАЗА/СКРЫТИЯ ОТВЕТОВ
+        // ============================================================
+        function toggleAnswer(id) {
+            const el = document.getElementById(id);
+            if (el) {
+                el.classList.toggle('show');
+                const btn = el.previousElementSibling;
+                if (btn && btn.classList.contains('answer-toggle')) {
+                    if (el.classList.contains('show')) {
+                        btn.innerHTML = '<i class="fas fa-eye-slash"></i> Скрыть';
+                    } else {
+                        btn.innerHTML = '<i class="fas fa-eye"></i> Показать ответ';
+                    }
+                }
+            }
+        }
+
+        // ============================================================
+        // БУРГЕР-МЕНЮ
+        // ============================================================
+        document.getElementById('burgerBtn').addEventListener('click', () => {
+            document.getElementById('navMenu').classList.toggle('open');
+        });
+
+        document.querySelectorAll('.nav-menu a').forEach(a => {
+            a.addEventListener('click', () => {
+                document.getElementById('navMenu').classList.remove('open');
+            });
+        });
+    </script>
+
+</body>
+</html>
