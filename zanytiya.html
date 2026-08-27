@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Все занятия — Олимпиадный практикум</title>
+    
+    <!-- Шрифты -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@400;500;600;700&family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+    
+    <!-- Font Awesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    
+    <style>
+        /* ============================================================
+           ДИЗАЙН-СИСТЕМА (ТА ЖЕ, ЧТО НА ГЛАВНОЙ)
+           ============================================================ */
+        :root {
+            --primary: #8D0B0D;
+            --primary-light: #FBC5D9;
+            --bg-page: #F1EBE9;
+            --bg-white: #FFFFFF;
+            --text-primary: #000000;
+            --text-secondary: #555555;
+            --text-light: #999999;
+            --shadow-color: #d0c8c4;
+            --border-color: #e8e0dc;
+            --success: #27ae60;
+            --error: #c0392b;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-page);
+            color: var(--text-primary);
+            padding-top: 70px;
+            min-height: 100vh;
+        }
+
+        h1, h2, h3, .page-title {
+            font-family: 'Playfair Display', serif;
+        }
+
+        .card {
+            background: var(--bg-white);
+            border-radius: 32px;
+            padding: 1.8rem;
+            box-shadow: 0 8px 0 var(--shadow-color), 0 12px 28px rgba(0,0,0,0.06);
+            border: 1px solid var(--border-color);
+            transition: 0.3s;
+        }
+        .card:hover {
+            transform: translateY(-4px);
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: #FFFFFF;
+            border: none;
+            padding: 0.8rem 2rem;
+            border-radius: 60px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            transition: 0.25s;
+            box-shadow: 0 8px 20px rgba(141,11,13,0.2);
+            text-decoration: none;
+        }
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 28px rgba(141,11,13,0.35);
+        }
+
+        .btn-secondary {
+            background: var(--primary-light);
+            color: #000;
+            border: none;
+            padding: 0.8rem 2rem;
+            border-radius: 60px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: 0.25s;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+        .btn-secondary:hover {
+            background: #f5b2cc;
+            transform: translateY(-3px);
+        }
+
+        .btn-small {
+            background: var(--primary-light);
+            color: #000;
+            border: none;
+            padding: 0.4rem 1.2rem;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: 0.2s;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+        .btn-small:hover {
+            background: #f5b2cc;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 0.2rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+        .badge-primary { background: var(--primary); color: #fff; }
+        .badge-pink { background: var(--primary-light); color: #000; }
+        .badge-green { background: var(--success); color: #fff; }
+        .badge-gray { background: var(--border-color); color: var(--text-secondary); }
+
+        /* ============================================================
+           НАВИГАЦИЯ
+           ============================================================ */
+        .navbar {
+            background: #ffffff;
+            padding: 0.6rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+            border-bottom: 3px solid var(--primary-light);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            min-height: 60px;
+        }
+
+        .nav-left {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .nav-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            font-weight: 700;
+            text-decoration: none;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .nav-title-icon { font-size: 1.5rem; }
+        .nav-title span span { color: var(--primary); }
+
+        .nav-menu {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+        .nav-menu a {
+            text-decoration: none;
+            color: var(--text-primary);
+            font-weight: 600;
+            font-size: 0.95rem;
+            padding: 0.5rem 0.2rem;
+            border-bottom: 3px solid transparent;
+            transition: 0.25s;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+        .nav-menu a:hover,
+        .nav-menu a.active {
+            border-bottom-color: var(--primary);
+            color: var(--primary);
+        }
+
+        .nav-school {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+            text-align: right;
+            line-height: 1.3;
+        }
+        .nav-school .school-name {
+            color: var(--primary);
+            font-weight: 700;
+        }
+
+        .burger-btn {
+            display: none;
+            font-size: 1.8rem;
+            cursor: pointer;
+            color: var(--primary);
+            background: none;
+            border: none;
+            padding: 0.2rem 0.5rem;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 2rem;
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            border-top: 2px solid var(--primary-light);
+            margin-top: 2rem;
+            background: rgba(255, 255, 255, 0.5);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem 2rem;
+        }
+
+        .page-title {
+            font-size: 2.4rem;
+            margin-top: 0.5rem;
+            margin-bottom: 0.2rem;
+        }
+        .page-subtitle {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+        }
+
+        .lessons-table-wrap {
+            overflow-x: auto;
+        }
+
+        .lessons-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: var(--bg-white);
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 8px 0 var(--shadow-color), 0 12px 28px rgba(0,0,0,0.06);
+            border: 1px solid var(--border-color);
+        }
+        .lessons-table thead {
+            background: var(--primary);
+            color: #fff;
+        }
+        .lessons-table th {
+            padding: 1rem 1.2rem;
+            text-align: left;
+            font-weight: 600;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .lessons-table td {
+            padding: 1rem 1.2rem;
+            border-bottom: 1px solid var(--border-color);
+            vertical-align: middle;
+        }
+        .lessons-table tbody tr {
+            transition: 0.2s;
+            cursor: pointer;
+        }
+        .lessons-table tbody tr:hover {
+            background: #faf6f4;
+        }
+        .lessons-table tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+        .lesson-topic {
+            font-weight: 600;
+            font-size: 1rem;
+        }
+        .lesson-topic .topic-icon {
+            margin-right: 0.5rem;
+        }
+        .lesson-status {
+            white-space: nowrap;
+        }
+
+        /* ============================================================
+           АДАПТИВНОСТЬ
+           ============================================================ */
+        @media (max-width: 768px) {
+            body { padding-top: 55px; }
+            .navbar { padding: 0.4rem 1rem; min-height: 50px; flex-wrap: wrap; }
+            .nav-title { font-size: 1rem; }
+            .nav-title span span { display: none; }
+            .nav-school { font-size: 0.7rem; }
+            .burger-btn { display: block; }
+            .nav-menu {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: #ffffff;
+                flex-direction: column;
+                padding: 1rem;
+                gap: 0.3rem;
+                border-bottom: 3px solid var(--primary-light);
+                box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+            }
+            .nav-menu.open { display: flex; }
+            .nav-menu a {
+                font-size: 0.9rem;
+                padding: 0.6rem 0;
+                width: 100%;
+                text-align: center;
+                border-bottom: 1px solid #f0ecea;
+                justify-content: center;
+            }
+            .nav-menu a:last-child { border-bottom: none; }
+
+            .container { padding: 0 0.8rem 1.5rem; }
+            .page-title { font-size: 1.8rem; }
+
+            .lessons-table th,
+            .lessons-table td { padding: 0.7rem 0.8rem; font-size: 0.85rem; }
+        }
+
+        @media (max-width: 480px) {
+            body { padding-top: 48px; }
+            .nav-title { font-size: 0.85rem; }
+            .nav-school { font-size: 0.6rem; }
+            .burger-btn { font-size: 1.4rem; }
+            .page-title { font-size: 1.5rem; }
+            .lessons-table th,
+            .lessons-table td { padding: 0.5rem 0.4rem; font-size: 0.75rem; }
+            .lesson-topic { font-size: 0.85rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ========== НАВИГАЦИЯ ========== -->
+    <nav class="navbar">
+        <div class="nav-left">
+            <button class="burger-btn" id="burgerBtn" aria-label="Меню">
+                <i class="fas fa-bars"></i>
+            </button>
+            <a href="index.html" class="nav-title">
+                <span class="nav-title-icon">🏆</span>
+                <span>Олимпиадный <span>практикум</span></span>
+            </a>
+        </div>
+        <div class="nav-menu" id="navMenu">
+            <a href="index.html"><i class="fas fa-home"></i> Главная</a>
+            <a href="zanytiya.html" class="active"><i class="fas fa-tasks"></i> Занятия</a>
+        </div>
+        <div class="nav-school">
+            МАОУ СШ №151<br />
+            <span class="school-name">г. Красноярска</span>
+        </div>
+    </nav>
+
+    <!-- ========== ОСНОВНОЙ КОНТЕНТ ========== -->
+    <main class="container">
+
+        <h1 class="page-title">📚 Все занятия</h1>
+        <p class="page-subtitle">Выбери занятие для подготовки</p>
+
+        <div class="lessons-table-wrap">
+            <table class="lessons-table">
+                <thead>
+                    <tr>
+                        <th>Тема</th>
+                        <th>Дата</th>
+                        <th>Статус</th>
+                        <th style="text-align:center;">Детали</th>
+                    </tr>
+                </thead>
+                <tbody id="allLessonsBody">
+                    <!-- Заполняется через JS -->
+                </tbody>
+            </table>
+        </div>
+
+        <div style="margin-top: 1.5rem;">
+            <a href="index.html" class="btn-secondary">
+                <i class="fas fa-arrow-left"></i> На главную
+            </a>
+        </div>
+
+    </main>
+
+    <footer class="footer">
+        <p>🏆 Олимпиадный практикум &copy; 2026</p>
+    </footer>
+
+    <script>
+        // ============================================================
+        // ДАННЫЕ ЗАНЯТИЙ (ВСЕ)
+        // ============================================================
+
+        const LESSONS = [
+            { id: 1, topic: '🧮 Алгебра: уравнения', date: '15 марта 2026', status: 'completed' },
+            { id: 2, topic: '📐 Геометрия: треугольники', date: '17 марта 2026', status: 'in-progress' },
+            { id: 3, topic: '🧩 Комбинаторика: перестановки', date: '19 марта 2026', status: 'upcoming' },
+            { id: 4, topic: '🔢 Теория чисел: делимость', date: '22 марта 2026', status: 'upcoming' },
+            { id: 5, topic: '🧠 Логика: задачи на рассуждение', date: '24 марта 2026', status: 'upcoming' },
+        ];
+
+        function getStatusBadge(status) {
+            const map = {
+                'completed': '<span class="badge badge-green">✅ Завершено</span>',
+                'in-progress': '<span class="badge badge-primary">🔄 В процессе</span>',
+                'upcoming': '<span class="badge badge-gray">⏳ Предстоит</span>'
+            };
+            return map[status] || map['upcoming'];
+        }
+
+        // ============================================================
+        // ОТРИСОВКА ВСЕХ ЗАНЯТИЙ
+        // ============================================================
+
+        function renderAllLessons() {
+            const tbody = document.getElementById('allLessonsBody');
+
+            tbody.innerHTML = LESSONS.map(lesson => `
+                <tr onclick="window.location.href='zanytiya${lesson.id}.html'">
+                    <td><span class="lesson-topic">${lesson.topic}</span></td>
+                    <td>${lesson.date}</td>
+                    <td class="lesson-status">${getStatusBadge(lesson.status)}</td>
+                    <td style="text-align:center;">
+                        <a href="zanytiya${lesson.id}.html" class="btn-small" onclick="event.stopPropagation();">
+                            <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        // ============================================================
+        // БУРГЕР-МЕНЮ
+        // ============================================================
+
+        document.getElementById('burgerBtn').addEventListener('click', () => {
+            document.getElementById('navMenu').classList.toggle('open');
+        });
+
+        document.querySelectorAll('.nav-menu a').forEach(a => {
+            a.addEventListener('click', () => {
+                document.getElementById('navMenu').classList.remove('open');
+            });
+        });
+
+        // ============================================================
+        // ИНИЦИАЛИЗАЦИЯ
+        // ============================================================
+
+        renderAllLessons();
+    </script>
+
+</body>
+</html>
