@@ -13,7 +13,7 @@
     
     <style>
         /* ============================================================
-           ДИЗАЙН-СИСТЕМА (ТА ЖЕ, ЧТО НА ГЛАВНОЙ)
+           ДИЗАЙН-СИСТЕМА
            ============================================================ */
         :root {
             --primary: #8D0B0D;
@@ -282,15 +282,17 @@
             border-bottom: none;
         }
 
+        .lesson-number {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 800;
+            color: var(--primary);
+            font-size: 0.9rem;
+            text-align: center;
+            white-space: nowrap;
+        }
         .lesson-topic {
             font-weight: 600;
             font-size: 1rem;
-        }
-        .lesson-topic .topic-icon {
-            margin-right: 0.5rem;
-        }
-        .lesson-status {
-            white-space: nowrap;
         }
 
         /* ============================================================
@@ -332,6 +334,8 @@
 
             .lessons-table th,
             .lessons-table td { padding: 0.7rem 0.8rem; font-size: 0.85rem; }
+            .lesson-topic { font-size: 0.85rem; }
+            .lesson-number { font-size: 0.75rem; }
         }
 
         @media (max-width: 480px) {
@@ -342,7 +346,8 @@
             .page-title { font-size: 1.5rem; }
             .lessons-table th,
             .lessons-table td { padding: 0.5rem 0.4rem; font-size: 0.75rem; }
-            .lesson-topic { font-size: 0.85rem; }
+            .lesson-topic { font-size: 0.8rem; }
+            .lesson-number { font-size: 0.65rem; }
         }
     </style>
 </head>
@@ -379,9 +384,8 @@
             <table class="lessons-table">
                 <thead>
                     <tr>
+                        <th style="width:60px; text-align:center;">№</th>
                         <th>Тема</th>
-                        <th>Дата</th>
-                        <th>Статус</th>
                         <th style="text-align:center;">Детали</th>
                     </tr>
                 </thead>
@@ -399,31 +403,33 @@
 
     </main>
 
+    <!-- ========== ФУТЕР ========== -->
     <footer class="footer">
         <p>🏆 Олимпиадный практикум &copy; 2026</p>
     </footer>
 
+    <!-- ============================================================
+    JAVASCRIPT
+    ============================================================ -->
     <script>
         // ============================================================
-        // ДАННЫЕ ЗАНЯТИЙ (ВСЕ)
+        // ДАННЫЕ ЗАНЯТИЙ (ВСЕ 12)
         // ============================================================
 
         const LESSONS = [
-            { id: 1, topic: '🧮 Алгебра: уравнения', date: '15 марта 2026', status: 'completed' },
-            { id: 2, topic: '📐 Геометрия: треугольники', date: '17 марта 2026', status: 'in-progress' },
-            { id: 3, topic: '🧩 Комбинаторика: перестановки', date: '19 марта 2026', status: 'upcoming' },
-            { id: 4, topic: '🔢 Теория чисел: делимость', date: '22 марта 2026', status: 'upcoming' },
-            { id: 5, topic: '🧠 Логика: задачи на рассуждение', date: '24 марта 2026', status: 'upcoming' },
+            { id: 1, topic: 'Можно или нельзя? Существует или не существует?' },
+            { id: 2, topic: 'Истинные и ложные высказывания. Рыцари, лжецы, хитрецы' },
+            { id: 3, topic: 'Чётность и нечётность' },
+            { id: 4, topic: 'Чётность и нечётность (продолжение)' },
+            { id: 5, topic: 'Делители и кратные числа. Простое и составное число. Основные свойства делимости натуральных чисел' },
+            { id: 6, topic: 'Признаки делимости' },
+            { id: 7, topic: 'Основная теорема арифметики. Магическое число Шахеризады' },
+            { id: 8, topic: 'НОД и НОК натуральных чисел. Взаимно простые числа' },
+            { id: 9, topic: 'Сладкие остатки. Признаки делимости на 7, 11, 13' },
+            { id: 10, topic: 'Математический турнир' },
+            { id: 11, topic: 'Затруднительные ситуации' },
+            { id: 12, topic: 'Обратный ход' }
         ];
-
-        function getStatusBadge(status) {
-            const map = {
-                'completed': '<span class="badge badge-green">✅ Завершено</span>',
-                'in-progress': '<span class="badge badge-primary">🔄 В процессе</span>',
-                'upcoming': '<span class="badge badge-gray">⏳ Предстоит</span>'
-            };
-            return map[status] || map['upcoming'];
-        }
 
         // ============================================================
         // ОТРИСОВКА ВСЕХ ЗАНЯТИЙ
@@ -434,12 +440,11 @@
 
             tbody.innerHTML = LESSONS.map(lesson => `
                 <tr onclick="window.location.href='zanytiya${lesson.id}.html'">
+                    <td class="lesson-number">${lesson.id}</td>
                     <td><span class="lesson-topic">${lesson.topic}</span></td>
-                    <td>${lesson.date}</td>
-                    <td class="lesson-status">${getStatusBadge(lesson.status)}</td>
                     <td style="text-align:center;">
                         <a href="zanytiya${lesson.id}.html" class="btn-small" onclick="event.stopPropagation();">
-                            <i class="fas fa-arrow-right"></i>
+                            <i class="fas fa-arrow-right"></i> Открыть
                         </a>
                     </td>
                 </tr>
