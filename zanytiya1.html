@@ -18,9 +18,9 @@
         :root {
             --primary: #8D0B0D;
             --primary-light: #FBC5D9;
-            --bg-page: #F1EBE9;
+            --bg-page: #FAF6F3;    /* Светлее! */
             --bg-white: #FFFFFF;
-            --text-primary: #000000;
+            --text-primary: #1a1a1a;
             --text-secondary: #555555;
             --text-light: #999999;
             --shadow-color: #d0c8c4;
@@ -41,6 +41,7 @@
             color: var(--text-primary);
             padding-top: 70px;
             min-height: 100vh;
+            font-size: 1.1rem;   /* Чуть крупнее */
         }
 
         h1, h2, h3, .page-title {
@@ -50,7 +51,7 @@
         .card {
             background: var(--bg-white);
             border-radius: 32px;
-            padding: 1.8rem;
+            padding: 2rem;
             box-shadow: 0 8px 0 var(--shadow-color), 0 12px 28px rgba(0,0,0,0.06);
             border: 1px solid var(--border-color);
             transition: 0.3s;
@@ -107,7 +108,7 @@
             padding: 0.4rem 1.2rem;
             border-radius: 40px;
             font-weight: 600;
-            font-size: 0.8rem;
+            font-size: 0.85rem;
             cursor: pointer;
             transition: 0.2s;
             text-decoration: none;
@@ -123,7 +124,7 @@
             display: inline-block;
             padding: 0.2rem 0.8rem;
             border-radius: 20px;
-            font-size: 0.75rem;
+            font-size: 0.8rem;
             font-weight: 600;
         }
         .badge-primary { background: var(--primary); color: #fff; }
@@ -134,14 +135,16 @@
         /* ---------- КНОПКА ПОКАЗАТЬ ОТВЕТ ---------- */
         .answer-toggle {
             margin-top: 0.8rem;
+            font-size: 0.9rem;
         }
         .answer-hidden {
             display: none;
             margin-top: 0.8rem;
-            padding: 1rem;
+            padding: 1.2rem;
             background: #f9f6f4;
             border-radius: 16px;
             border-left: 4px solid var(--primary);
+            font-size: 1.05rem;
         }
         .answer-hidden.show {
             display: block;
@@ -151,7 +154,7 @@
         .divider {
             border: none;
             border-top: 2px dashed var(--border-color);
-            margin: 2rem 0;
+            margin: 2.5rem 0;
         }
 
         /* ---------- ДОМАШНЕЕ ЗАДАНИЕ ---------- */
@@ -159,9 +162,9 @@
             font-family: 'Montserrat', sans-serif;
             font-weight: 800;
             text-align: center;
-            font-size: 1.8rem;
+            font-size: 2rem;
             color: var(--primary);
-            margin: 2rem 0 1.5rem;
+            margin: 2.5rem 0 1.5rem;
         }
 
         /* ============================================================
@@ -251,26 +254,26 @@
             text-align: center;
             padding: 2rem;
             color: var(--text-secondary);
-            font-size: 0.85rem;
+            font-size: 0.9rem;
             border-top: 2px solid var(--primary-light);
             margin-top: 2rem;
             background: rgba(255, 255, 255, 0.5);
         }
 
         .container {
-            max-width: 900px;
+            max-width: 920px;
             margin: 0 auto;
             padding: 0 1.5rem 2rem;
         }
 
         .page-title {
-            font-size: 2.4rem;
+            font-size: 2.6rem;
             margin-top: 0.5rem;
             margin-bottom: 0.2rem;
         }
         .page-subtitle {
             color: var(--text-secondary);
-            font-size: 1.1rem;
+            font-size: 1.2rem;
             margin-bottom: 2rem;
         }
 
@@ -285,7 +288,7 @@
             margin-bottom: 1.5rem;
         }
         .lesson-detail-header .back-btn {
-            font-size: 1.5rem;
+            font-size: 1.6rem;
             color: var(--primary);
             text-decoration: none;
             transition: 0.2s;
@@ -295,17 +298,17 @@
         }
 
         .task-block {
-            margin-bottom: 2rem;
+            margin-bottom: 2.5rem;
         }
         .task-block .task-number {
             font-family: 'Montserrat', sans-serif;
             font-weight: 800;
             color: var(--primary);
-            font-size: 1.2rem;
+            font-size: 1.3rem;
         }
         .task-block .task-text {
-            font-size: 1.05rem;
-            line-height: 1.7;
+            font-size: 1.15rem;
+            line-height: 1.8;
             margin: 0.5rem 0;
         }
         .task-block .task-text strong {
@@ -320,8 +323,8 @@
 
         .solution-block {
             margin-top: 1rem;
-            padding: 1.2rem;
-            background: #f5f0ee;
+            padding: 1.5rem;
+            background: #f9f6f4;
             border-radius: 16px;
             border-left: 4px solid var(--primary);
         }
@@ -329,9 +332,11 @@
             font-weight: 700;
             color: var(--primary);
             margin-bottom: 0.5rem;
+            font-size: 1.1rem;
         }
         .solution-block .solution-text {
-            line-height: 1.7;
+            line-height: 1.8;
+            font-size: 1.05rem;
         }
         .solution-block .solution-text .math {
             font-family: 'Montserrat', sans-serif;
@@ -340,14 +345,14 @@
 
         .homework-section {
             margin-top: 2rem;
-            padding: 2rem;
-            background: #faf6f4;
+            padding: 2.5rem;
+            background: #f9f6f4;
             border-radius: 32px;
             border: 2px solid var(--primary-light);
         }
         .homework-section .hw-item {
-            margin-bottom: 1.5rem;
-            padding-bottom: 1.5rem;
+            margin-bottom: 1.8rem;
+            padding-bottom: 1.8rem;
             border-bottom: 1px solid var(--border-color);
         }
         .homework-section .hw-item:last-child {
@@ -359,11 +364,11 @@
             font-family: 'Montserrat', sans-serif;
             font-weight: 800;
             color: var(--primary);
-            font-size: 1.1rem;
+            font-size: 1.2rem;
         }
         .homework-section .hw-text {
-            font-size: 1rem;
-            line-height: 1.7;
+            font-size: 1.1rem;
+            line-height: 1.8;
             margin: 0.3rem 0;
         }
         .homework-section .hw-image {
@@ -408,9 +413,10 @@
             .nav-menu a:last-child { border-bottom: none; }
 
             .container { padding: 0 0.8rem 1.5rem; }
-            .page-title { font-size: 1.8rem; }
-            .task-block .task-text { font-size: 0.95rem; }
-            .homework-title { font-size: 1.4rem; }
+            .page-title { font-size: 2rem; }
+            .task-block .task-text { font-size: 1.05rem; }
+            .homework-title { font-size: 1.6rem; }
+            .homework-section .hw-text { font-size: 1rem; }
         }
 
         @media (max-width: 480px) {
@@ -418,8 +424,10 @@
             .nav-title { font-size: 0.85rem; }
             .nav-school { font-size: 0.6rem; }
             .burger-btn { font-size: 1.4rem; }
-            .page-title { font-size: 1.5rem; }
-            .homework-section { padding: 1.2rem; }
+            .page-title { font-size: 1.6rem; }
+            .homework-section { padding: 1.5rem; }
+            .homework-section .hw-text { font-size: 0.95rem; }
+            .solution-block .solution-text { font-size: 0.95rem; }
         }
     </style>
 </head>
@@ -461,12 +469,12 @@
         <!-- ============================================================
         ВСТУПЛЕНИЕ
         ============================================================ -->
-        <div class="card" style="margin-bottom: 2rem;">
-            <p style="font-size: 1.05rem; line-height: 1.7;">
+        <div class="card" style="margin-bottom: 2.5rem;">
+            <p style="font-size: 1.15rem; line-height: 1.8;">
                 Для того, чтобы решить следующую задачу, тебе нужно знать понятие <strong>чётности и нечётности</strong>,
                 а также свойства чётных и нечётных чисел.
             </p>
-            <p style="font-size: 1.05rem; line-height: 1.7; margin-top: 0.5rem;">
+            <p style="font-size: 1.15rem; line-height: 1.8; margin-top: 0.5rem;">
                 <strong>Попробуйте доказать, почему эти свойства верны?</strong>
                 Может ли быть так, что какое-то свойство неверно?
             </p>
@@ -645,10 +653,10 @@
         ЗАКЛЮЧЕНИЕ
         ============================================================ -->
         <div class="card" style="text-align: center; margin-bottom: 2rem;">
-            <p style="font-size: 1.1rem; line-height: 1.7;">
+            <p style="font-size: 1.2rem; line-height: 1.8;">
                 🎉 <strong>Молодец!</strong> Ты решил основные задачи из темы <strong>«Можно или нельзя»</strong>.
             </p>
-            <p style="font-size: 1.05rem; line-height: 1.7; margin-top: 0.5rem; color: var(--text-secondary);">
+            <p style="font-size: 1.1rem; line-height: 1.8; margin-top: 0.5rem; color: var(--text-secondary);">
                 Попробуй ещё свои силы. В комментариях можно найти подсказки, а на следующем шаге будут приведены решения этих задач.
             </p>
         </div>
