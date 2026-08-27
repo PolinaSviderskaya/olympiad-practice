@@ -1,0 +1,1137 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Занятие №3 — Чётность и нечётность — Олимпиадный практикум</title>
+    
+    <!-- Шрифты -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@400;500;600;700&family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+    
+    <!-- Font Awesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    
+    <style>
+        /* ============================================================
+           ДИЗАЙН-СИСТЕМА
+           ============================================================ */
+        :root {
+            --primary: #8D0B0D;
+            --primary-light: #FBC5D9;
+            --bg-page: #FAF6F3;
+            --bg-white: #FFFFFF;
+            --text-primary: #1a1a1a;
+            --text-secondary: #555555;
+            --text-light: #999999;
+            --shadow-color: #d0c8c4;
+            --border-color: #e8e0dc;
+            --success: #27ae60;
+            --error: #c0392b;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-page);
+            color: var(--text-primary);
+            padding-top: 70px;
+            min-height: 100vh;
+            font-size: 1.1rem;
+        }
+
+        h1, h2, h3, .page-title {
+            font-family: 'Playfair Display', serif;
+        }
+
+        .card {
+            background: var(--bg-white);
+            border-radius: 32px;
+            padding: 2rem;
+            box-shadow: 0 8px 0 var(--shadow-color), 0 12px 28px rgba(0,0,0,0.06);
+            border: 1px solid var(--border-color);
+            transition: 0.3s;
+        }
+        .card:hover {
+            transform: translateY(-4px);
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: #FFFFFF;
+            border: none;
+            padding: 0.8rem 2rem;
+            border-radius: 60px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            transition: 0.25s;
+            box-shadow: 0 8px 20px rgba(141,11,13,0.2);
+            text-decoration: none;
+        }
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 28px rgba(141,11,13,0.35);
+        }
+
+        .btn-secondary {
+            background: var(--primary-light);
+            color: #000;
+            border: none;
+            padding: 0.8rem 2rem;
+            border-radius: 60px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: 0.25s;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+        .btn-secondary:hover {
+            background: #f5b2cc;
+            transform: translateY(-3px);
+        }
+
+        .btn-small {
+            background: var(--primary-light);
+            color: #000;
+            border: none;
+            padding: 0.4rem 1.2rem;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: 0.2s;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+        .btn-small:hover {
+            background: #f5b2cc;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 0.2rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+        .badge-primary { background: var(--primary); color: #fff; }
+        .badge-pink { background: var(--primary-light); color: #000; }
+        .badge-green { background: var(--success); color: #fff; }
+        .badge-gray { background: var(--border-color); color: var(--text-secondary); }
+
+        .answer-toggle {
+            margin-top: 0.8rem;
+            font-size: 0.9rem;
+        }
+        .answer-hidden {
+            display: none;
+            margin-top: 0.8rem;
+            padding: 1.2rem;
+            background: #f9f6f4;
+            border-radius: 16px;
+            border-left: 4px solid var(--primary);
+            font-size: 1.05rem;
+        }
+        .answer-hidden.show {
+            display: block;
+        }
+
+        .divider {
+            border: none;
+            border-top: 2px dashed var(--border-color);
+            margin: 2.5rem 0;
+        }
+
+        .homework-title {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 800;
+            text-align: center;
+            font-size: 2rem;
+            color: var(--primary);
+            margin: 2.5rem 0 1.5rem;
+        }
+
+        .section-subtitle {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 1.4rem;
+            color: var(--primary);
+            margin: 1.5rem 0 0.8rem;
+        }
+
+        .property-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.8rem;
+            margin: 0.5rem 0;
+        }
+        .property-item {
+            padding: 0.6rem 1rem;
+            background: #f9f6f4;
+            border-radius: 12px;
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+        .property-item strong {
+            color: var(--primary);
+        }
+        .property-item .highlight {
+            background: var(--primary-light);
+            padding: 0.1rem 0.4rem;
+            border-radius: 6px;
+            font-weight: 700;
+        }
+
+        .fill-blank {
+            background: #f9f6f4;
+            padding: 1.2rem 1.5rem;
+            border-radius: 16px;
+            border: 2px dashed var(--border-color);
+            font-size: 1.05rem;
+            line-height: 2;
+        }
+        .fill-blank .blank {
+            display: inline-block;
+            min-width: 100px;
+            border-bottom: 2px dashed var(--primary);
+            color: var(--primary);
+            font-weight: 600;
+            padding: 0 0.2rem;
+        }
+
+        /* ============================================================
+           НАВИГАЦИЯ
+           ============================================================ */
+        .navbar {
+            background: #ffffff;
+            padding: 0.6rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+            border-bottom: 3px solid var(--primary-light);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            min-height: 60px;
+        }
+
+        .nav-left {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .nav-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            font-weight: 700;
+            text-decoration: none;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .nav-title-icon { font-size: 1.5rem; }
+        .nav-title span span { color: var(--primary); }
+
+        .nav-menu {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+        .nav-menu a {
+            text-decoration: none;
+            color: var(--text-primary);
+            font-weight: 600;
+            font-size: 0.95rem;
+            padding: 0.5rem 0.2rem;
+            border-bottom: 3px solid transparent;
+            transition: 0.25s;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+        .nav-menu a:hover,
+        .nav-menu a.active {
+            border-bottom-color: var(--primary);
+            color: var(--primary);
+        }
+
+        .nav-school {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+            text-align: right;
+            line-height: 1.3;
+        }
+        .nav-school .school-name {
+            color: var(--primary);
+            font-weight: 700;
+        }
+
+        .burger-btn {
+            display: none;
+            font-size: 1.8rem;
+            cursor: pointer;
+            color: var(--primary);
+            background: none;
+            border: none;
+            padding: 0.2rem 0.5rem;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 2rem;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            border-top: 2px solid var(--primary-light);
+            margin-top: 2rem;
+            background: rgba(255, 255, 255, 0.5);
+        }
+
+        .container {
+            max-width: 920px;
+            margin: 0 auto;
+            padding: 0 1.5rem 2rem;
+        }
+
+        .page-title {
+            font-size: 2.6rem;
+            margin-top: 0.5rem;
+            margin-bottom: 0.2rem;
+        }
+        .page-subtitle {
+            color: var(--text-secondary);
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+        }
+
+        .lesson-detail-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-bottom: 1.5rem;
+        }
+        .lesson-detail-header .back-btn {
+            font-size: 1.6rem;
+            color: var(--primary);
+            text-decoration: none;
+            transition: 0.2s;
+        }
+        .lesson-detail-header .back-btn:hover {
+            transform: translateX(-4px);
+        }
+
+        .task-block {
+            margin-bottom: 2.5rem;
+        }
+        .task-block .task-number {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 800;
+            color: var(--primary);
+            font-size: 1.3rem;
+        }
+        .task-block .task-text {
+            font-size: 1.15rem;
+            line-height: 1.8;
+            margin: 0.5rem 0;
+        }
+        .task-block .task-text strong {
+            color: var(--primary);
+        }
+        .task-block .task-image {
+            max-width: 100%;
+            border-radius: 16px;
+            border: 1px solid var(--border-color);
+            margin: 0.8rem 0;
+        }
+
+        .solution-block {
+            margin-top: 1rem;
+            padding: 1.5rem;
+            background: #f9f6f4;
+            border-radius: 16px;
+            border-left: 4px solid var(--primary);
+        }
+        .solution-block .solution-title {
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+        .solution-block .solution-text {
+            line-height: 1.8;
+            font-size: 1.05rem;
+        }
+
+        .homework-section {
+            margin-top: 2rem;
+            padding: 2.5rem;
+            background: #f9f6f4;
+            border-radius: 32px;
+            border: 2px solid var(--primary-light);
+        }
+        .homework-section .hw-item {
+            margin-bottom: 1.8rem;
+            padding-bottom: 1.8rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+        .homework-section .hw-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+        .homework-section .hw-number {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 800;
+            color: var(--primary);
+            font-size: 1.2rem;
+        }
+        .homework-section .hw-text {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin: 0.3rem 0;
+        }
+        .homework-section .hw-image {
+            max-width: 100%;
+            border-radius: 16px;
+            border: 1px solid var(--border-color);
+            margin: 0.5rem 0;
+        }
+
+        .video-block {
+            background: #1a1a2e;
+            border-radius: 16px;
+            padding: 1.5rem;
+            color: #fff;
+            text-align: center;
+            margin: 1rem 0;
+        }
+        .video-block .video-placeholder {
+            font-size: 3rem;
+            margin-bottom: 0.5rem;
+        }
+        .video-block .video-text {
+            font-size: 1.1rem;
+            opacity: 0.8;
+        }
+
+        .hint-box {
+            background: #e8f0fe;
+            border-radius: 12px;
+            padding: 0.8rem 1.2rem;
+            margin: 0.5rem 0;
+            font-size: 1rem;
+            border-left: 4px solid #4a90d9;
+        }
+        .hint-box .hint-label {
+            font-weight: 700;
+            color: #4a90d9;
+        }
+
+        /* ============================================================
+           АДАПТИВНОСТЬ
+           ============================================================ */
+        @media (max-width: 768px) {
+            body { padding-top: 55px; }
+            .navbar { padding: 0.4rem 1rem; min-height: 50px; flex-wrap: wrap; }
+            .nav-title { font-size: 1rem; }
+            .nav-title span span { display: none; }
+            .nav-school { font-size: 0.7rem; }
+            .burger-btn { display: block; }
+            .nav-menu {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: #ffffff;
+                flex-direction: column;
+                padding: 1rem;
+                gap: 0.3rem;
+                border-bottom: 3px solid var(--primary-light);
+                box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+            }
+            .nav-menu.open { display: flex; }
+            .nav-menu a {
+                font-size: 0.9rem;
+                padding: 0.6rem 0;
+                width: 100%;
+                text-align: center;
+                border-bottom: 1px solid #f0ecea;
+                justify-content: center;
+            }
+            .nav-menu a:last-child { border-bottom: none; }
+
+            .container { padding: 0 0.8rem 1.5rem; }
+            .page-title { font-size: 2rem; }
+            .task-block .task-text { font-size: 1.05rem; }
+            .homework-title { font-size: 1.6rem; }
+            .homework-section .hw-text { font-size: 1rem; }
+            .property-grid { grid-template-columns: 1fr; }
+            .fill-blank { font-size: 0.95rem; padding: 1rem; }
+        }
+
+        @media (max-width: 480px) {
+            body { padding-top: 48px; }
+            .nav-title { font-size: 0.85rem; }
+            .nav-school { font-size: 0.6rem; }
+            .burger-btn { font-size: 1.4rem; }
+            .page-title { font-size: 1.6rem; }
+            .homework-section { padding: 1.5rem; }
+            .homework-section .hw-text { font-size: 0.95rem; }
+            .solution-block .solution-text { font-size: 0.95rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ========== НАВИГАЦИЯ ========== -->
+    <nav class="navbar">
+        <div class="nav-left">
+            <button class="burger-btn" id="burgerBtn" aria-label="Меню">
+                <i class="fas fa-bars"></i>
+            </button>
+            <a href="index.html" class="nav-title">
+                <span class="nav-title-icon">🏆</span>
+                <span>Олимпиадный <span>практикум</span></span>
+            </a>
+        </div>
+        <div class="nav-menu" id="navMenu">
+            <a href="index.html"><i class="fas fa-home"></i> Главная</a>
+            <a href="zanytiya.html"><i class="fas fa-tasks"></i> Занятия</a>
+        </div>
+        <div class="nav-school">
+            МАОУ СШ №151<br />
+            <span class="school-name">г. Красноярска</span>
+        </div>
+    </nav>
+
+    <!-- ========== ОСНОВНОЙ КОНТЕНТ ========== -->
+    <main class="container">
+
+        <div class="lesson-detail-header">
+            <a href="zanytiya.html" class="back-btn" title="Назад к занятиям">
+                <i class="fas fa-arrow-left"></i>
+            </a>
+            <h1 class="page-title" style="margin:0;">🔢 Чётность и нечётность</h1>
+            <span class="badge badge-primary">🔄 В процессе</span>
+        </div>
+        <p class="page-subtitle">📅 19 марта 2026</p>
+
+        <!-- ============================================================
+        ВИДЕО
+        ============================================================ -->
+        <div class="video-block">
+            <div class="video-placeholder">🎬</div>
+            <div class="video-text">Видео 1 — Чётность и нечётность</div>
+            <div style="margin-top: 0.5rem; font-size: 0.9rem; opacity: 0.6;">
+                <i class="fas fa-play-circle"></i> Видео будет добавлено позже
+            </div>
+        </div>
+
+        <hr class="divider" />
+
+        <!-- ============================================================
+        ТЕОРИЯ
+        ============================================================ -->
+        <div class="card" style="margin-bottom: 2rem;">
+            <h3 style="font-family: 'Playfair Display', serif; font-size: 1.5rem; margin-bottom: 1rem;">
+                📖 Определение и свойства
+            </h3>
+
+            <p style="font-size: 1.15rem; line-height: 1.8;">
+                <strong>Определение:</strong> Целое число называется <strong>чётным</strong>, если оно делится на 2 без остатка, и <strong>нечётным</strong> в противном случае.
+            </p>
+
+            <div style="background: #f9f6f4; border-radius: 12px; padding: 1rem; margin: 0.8rem 0;">
+                <p style="font-size: 1.1rem;">📌 <strong>Примеры:</strong></p>
+                <p>• 32 — <strong>чётное</strong>, так как 32 : 2 = 16</p>
+                <p>• 21 — <strong>нечётное</strong>, так как 21 не делится на 2</p>
+            </div>
+
+            <div style="background: #e8f0fe; border-radius: 12px; padding: 1rem; margin: 0.8rem 0; border-left: 4px solid #4a90d9;">
+                <p style="font-size: 1.1rem;">
+                    ⚠️ <strong>Важно:</strong> Чётность – это свойство <strong>целых</strong> чисел. Мы можем сказать, чётным или нечётным является число 7 или 22, но <strong>нельзя</strong> говорить о чётности чисел ½ или 5,025.
+                </p>
+            </div>
+
+            <div style="background: #f9f6f4; border-radius: 12px; padding: 1rem; margin: 0.8rem 0;">
+                <p style="font-size: 1.1rem;">
+                    <strong>Следствие:</strong> Из определения следует, что любое целое чётное число можно представить в виде <strong>2n</strong>, где n – целое число, и любое целое нечётное число можно представить в виде <strong>2n+1</strong>, где n – целое число.
+                </p>
+            </div>
+
+            <div style="background: #f9f6f4; border-radius: 12px; padding: 1rem; margin: 0.8rem 0;">
+                <p style="font-size: 1.1rem;">
+                    <strong>Обозначения:</strong> <span class="highlight" style="background: #FBC5D9; padding: 0.1rem 0.5rem; border-radius: 6px; font-weight: 700;">Н</span> — нечётное число, <span class="highlight" style="background: #8D0B0D; color: #fff; padding: 0.1rem 0.5rem; border-radius: 6px; font-weight: 700;">Ч</span> — чётное число.
+                </p>
+            </div>
+        </div>
+
+        <!-- ============================================================
+        СВОЙСТВА
+        ============================================================ -->
+        <div class="card" style="margin-bottom: 2rem;">
+            <h3 style="font-family: 'Playfair Display', serif; font-size: 1.5rem; margin-bottom: 1rem;">
+                📋 Свойства чётных и нечетных чисел
+            </h3>
+
+            <div style="text-align: center; font-size: 1.2rem; padding: 0.5rem; background: #f9f6f4; border-radius: 12px; margin-bottom: 1rem;">
+                <span class="highlight" style="background: #FBC5D9; padding: 0.2rem 0.6rem; border-radius: 6px; font-weight: 700;">Н</span> + <span class="highlight" style="background: #FBC5D9; padding: 0.2rem 0.6rem; border-radius: 6px; font-weight: 700;">Н</span> = <span class="highlight" style="background: #8D0B0D; color: #fff; padding: 0.2rem 0.6rem; border-radius: 6px; font-weight: 700;">Ч</span>
+                &nbsp;&nbsp;|&nbsp;&nbsp;
+                <span class="highlight" style="background: #8D0B0D; color: #fff; padding: 0.2rem 0.6rem; border-radius: 6px; font-weight: 700;">Ч</span> + <span class="highlight" style="background: #8D0B0D; color: #fff; padding: 0.2rem 0.6rem; border-radius: 6px; font-weight: 700;">Ч</span> = <span class="highlight" style="background: #8D0B0D; color: #fff; padding: 0.2rem 0.6rem; border-radius: 6px; font-weight: 700;">Ч</span>
+                &nbsp;&nbsp;|&nbsp;&nbsp;
+                <span class="highlight" style="background: #8D0B0D; color: #fff; padding: 0.2rem 0.6rem; border-radius: 6px; font-weight: 700;">Ч</span> + <span class="highlight" style="background: #FBC5D9; padding: 0.2rem 0.6rem; border-radius: 6px; font-weight: 700;">Н</span> = <span class="highlight" style="background: #FBC5D9; padding: 0.2rem 0.6rem; border-radius: 6px; font-weight: 700;">Н</span>
+            </div>
+
+            <p style="font-size: 1.1rem; font-weight: 700; margin-top: 0.5rem;">Признак чётного числа:</p>
+            <p style="font-size: 1.05rem; line-height: 1.8;">Число является чётным <strong>тогда и только тогда</strong>, когда его <strong>последняя цифра чётная</strong>.</p>
+
+            <div class="property-grid">
+                <div class="property-item"><strong>1.</strong> Чётные числа делятся на 2 без остатка: <span class="highlight">0, 2, 4, 6, 8, 10...</span></div>
+                <div class="property-item"><strong>2.</strong> Нечётные числа не делятся на 2 без остатка: <span class="highlight">1, 3, 5, 7, 9, 11...</span></div>
+                <div class="property-item"><strong>3.</strong> У чётного числа последняя цифра всегда чётная: <span class="highlight">110, 679232, 1000008</span></div>
+                <div class="property-item"><strong>4.</strong> У нечётного числа последняя цифра всегда нечётная: <span class="highlight">123, 974341, 5234459</span></div>
+                <div class="property-item"><strong>5.</strong> Если в произведении есть хотя бы одно чётное число → результат <span class="highlight">чётный</span>: 6·5·11 = 330</div>
+                <div class="property-item"><strong>6.</strong> Если в произведении все числа нечётные → результат <span class="highlight">нечётный</span>: 3·17·7 = 357</div>
+                <div class="property-item"><strong>7.</strong> Сумма <span class="highlight">чётного</span> количества нечётных чисел → <span class="highlight">чётная</span>: 13 + 15 = 28</div>
+                <div class="property-item"><strong>8.</strong> Сумма <span class="highlight">нечётного</span> количества нечётных чисел → <span class="highlight">нечётная</span>: 11 + 21 + 43 = 75</div>
+            </div>
+        </div>
+
+        <hr class="divider" />
+
+        <!-- ============================================================
+        РАЗМИНКА №1
+        ============================================================ -->
+        <div class="task-block">
+            <div class="task-number">Разминка №1</div>
+            <p class="task-text">
+                <strong>Подумайте, чётным или нечётным является число 0?</strong>
+            </p>
+            <button class="btn-small answer-toggle" onclick="toggleAnswer('warmup1')">
+                <i class="fas fa-eye"></i> Показать ответ
+            </button>
+            <div class="answer-hidden" id="warmup1">
+                <strong>Ответ:</strong> Число 0 — <strong>чётное</strong>, так как его можно представить в виде суммы двух одинаковых целых чисел: 0 = 0 + 0
+            </div>
+        </div>
+
+        <hr class="divider" />
+
+        <!-- ============================================================
+        РАЗМИНКА №2 + ВСТАВИТЬ СЛОВА
+        ============================================================ -->
+        <div class="task-block">
+            <div class="task-number">Разминка №2</div>
+            <p class="task-text">
+                Посмотрите на последовательность чисел <strong>«1, 2, 3, 4, 5, 6, 7, 8, 9, 10»</strong> и определите, какую закономерность чётных и нечётных чисел можно здесь заметить?
+            </p>
+
+            <div class="fill-blank">
+                <p><strong>Вставь пропущенные слова:</strong></p>
+                <p>1. Чтобы определить чётность числа, можно посмотреть на <span class="blank">__________</span> цифру в его записи. Если она чётная (0, 2, 4, 6, 8), то число <span class="blank">__________</span>, а если нечётная (1, 3, 5, 7, 9), то число <span class="blank">__________</span>.</p>
+                <p>2. Сумма и разность двух чисел чётная, если <span class="blank">__________</span> числа чётные или <span class="blank">__________</span> нечётные (то есть это числа <span class="blank">__________</span> чётности).</p>
+                <p>3. Сумма и разность двух чисел нечётная, если одно из них чётное, а другое <span class="blank">__________</span> (то есть это числа <span class="blank">__________</span> чётности).</p>
+            </div>
+
+            <button class="btn-small answer-toggle" onclick="toggleAnswer('warmup2')">
+                <i class="fas fa-eye"></i> Показать ответ
+            </button>
+            <div class="answer-hidden" id="warmup2">
+                <div class="solution-block">
+                    <div class="solution-title">📝 Правильные ответы:</div>
+                    <div class="solution-text">
+                        <p>1. Чтобы определить чётность числа, можно посмотреть на <strong>последнюю</strong> цифру в его записи. Если она чётная (0, 2, 4, 6, 8), то число <strong>чётное</strong>, а если нечётная (1, 3, 5, 7, 9), то число <strong>нечётное</strong>.</p>
+                        <p>2. Сумма и разность двух чисел чётная, если <strong>оба</strong> числа чётные или <strong>оба</strong> нечётные (то есть это числа <strong>одинаковой</strong> чётности).<br>
+                        <span style="color: var(--text-secondary); font-size: 0.95rem;">Пример: 2+4=6 (чёт), 3+5=8 (чёт), 5−3=2 (чёт)</span></p>
+                        <p>3. Сумма и разность двух чисел нечётная, если одно из них чётное, а другое <strong>нечётное</strong> (то есть это числа <strong>разной</strong> чётности).<br>
+                        <span style="color: var(--text-secondary); font-size: 0.95rem;">Пример: 2+3=5 (нечёт), 6−1=5 (нечёт)</span></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <hr class="divider" />
+
+        <!-- ============================================================
+        ПОЛЕЗНЫЕ РЕКОМЕНДАЦИИ
+        ============================================================ -->
+        <div class="card" style="margin-bottom: 2rem;">
+            <h3 style="font-family: 'Playfair Display', serif; font-size: 1.5rem; margin-bottom: 1rem;">
+                💡 Полезные рекомендации
+            </h3>
+
+            <p style="font-size: 1.1rem; font-weight: 700;">Задачи на чётность можно разделить на 3 подтемы:</p>
+            <div style="display: flex; gap: 1rem; flex-wrap: wrap; margin: 0.5rem 0;">
+                <span style="background: var(--primary-light); padding: 0.3rem 1rem; border-radius: 20px; font-weight: 600;">1️⃣ Задачи на чередование</span>
+                <span style="background: var(--primary-light); padding: 0.3rem 1rem; border-radius: 20px; font-weight: 600;">2️⃣ Задачи на разбиение на пары</span>
+                <span style="background: var(--primary-light); padding: 0.3rem 1rem; border-radius: 20px; font-weight: 600;">3️⃣ Различные задачи на чётность и нечётность</span>
+            </div>
+
+            <div style="margin-top: 1rem; background: #f9f6f4; border-radius: 12px; padding: 1rem;">
+                <p style="font-weight: 700;">Свойства чередования:</p>
+                <p style="font-size: 1.05rem; line-height: 1.8;">1. Если в некоторой замкнутой цепочке чередуются объекты двух видов, то их <strong>чётное число</strong> (и каждого вида поровну).</p>
+                <p style="font-size: 1.05rem; line-height: 1.8;">2. Если в некоторой замкнутой цепочке чередуются объекты двух видов:</p>
+                <div style="padding-left: 1.5rem;">
+                    <p style="font-size: 1.05rem;">• начало и конец цепочки <strong>разных видов</strong> → в ней <strong>чётное</strong> число объектов</p>
+                    <p style="font-size: 1.05rem;">• начало и конец <strong>одного вида</strong> → <strong>нечётное</strong> число объектов</p>
+                </div>
+                <p style="font-size: 1.05rem; line-height: 1.8; margin-top: 0.3rem;">3. Обратно: по чётности длины чередующейся цепочки можно узнать, одного или разных видов её начало и конец.</p>
+            </div>
+        </div>
+
+        <hr class="divider" />
+
+        <!-- ============================================================
+        ЗАДАЧА №1
+        ============================================================ -->
+        <div class="task-block">
+            <div class="task-number">Задача №1</div>
+            <p class="task-text">
+                На плоскости расположено <strong>11 шестерёнок</strong>, соединённых по цепочке (см. рис.).
+                <br /><strong>Могут ли все шестерёнки вращаться одновременно?</strong>
+            </p>
+            <img src="images/img3.1.png" alt="Шестерёнки" class="task-image" style="max-width: 400px;" />
+
+            <button class="btn-small answer-toggle" onclick="toggleAnswer('answer1')">
+                <i class="fas fa-eye"></i> Показать ответ
+            </button>
+            <div class="answer-hidden" id="answer1">
+                <div class="solution-block">
+                    <div class="solution-title">📝 Решение:</div>
+                    <div class="solution-text">
+                        <p>Предположим, что первая шестерёнка вращается <strong>по часовой стрелке</strong>. Тогда вторая — <strong>против</strong>, третья — снова <strong>по</strong>, четвёртая — <strong>против</strong> и т.д.</p>
+                        <p>Ясно, что «нечётные» шестерёнки должны вращаться по часовой стрелке, а «чётные» — против.</p>
+                        <p>Но тогда <strong>1-я и 11-я</strong> шестерёнки одновременно вращаются <strong>по часовой стрелке</strong>.</p>
+                        <p style="margin-top: 0.5rem;"><strong>Противоречие.</strong> Значит, все шестерёнки вращаться одновременно <strong>не могут</strong>.</p>
+                        <p style="margin-top: 0.5rem;"><strong>Ответ:</strong> нет, не могут.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <hr class="divider" />
+
+        <!-- ============================================================
+        ЗАДАЧА №2
+        ============================================================ -->
+        <div class="task-block">
+            <div class="task-number">Задача №2</div>
+            <p class="task-text">
+                Конь вышел с поля <strong>а8</strong> и через несколько ходов вернулся на него.
+                <br /><strong>Докажите, что он сделал чётное число ходов.</strong>
+            </p>
+            <div class="hint-box">
+                <span class="hint-label">💡 Подсказка:</span> Обратите внимание, что шахматный конь ходит с белой клетки на чёрную, а с чёрной – на белую.
+            </div>
+
+            <button class="btn-small answer-toggle" onclick="toggleAnswer('answer2')">
+                <i class="fas fa-eye"></i> Показать ответ
+            </button>
+            <div class="answer-hidden" id="answer2">
+                <div class="solution-block">
+                    <div class="solution-title">📝 Решение:</div>
+                    <div class="solution-text">
+                        <p>При каждом ходе конь <strong>меняет цвет поля</strong>, то есть происходит <strong>чередование</strong> цвета полей.</p>
+                        <p>Поэтому на исходное поле (<strong>того же цвета</strong>) он может вернуться <strong>только через чётное число ходов</strong>.</p>
+                        <p style="margin-top: 0.5rem;">Что и требовалось доказать.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <hr class="divider" />
+
+        <!-- ============================================================
+        ЗАДАЧА №3
+        ============================================================ -->
+        <div class="task-block">
+            <div class="task-number">Задача №3</div>
+            <p class="task-text">
+                <strong>Можно ли доску размером 5 × 5 заполнить доминошками размером 1 × 2?</strong>
+            </p>
+
+            <button class="btn-small answer-toggle" onclick="toggleAnswer('answer3')">
+                <i class="fas fa-eye"></i> Показать ответ
+            </button>
+            <div class="answer-hidden" id="answer3">
+                <div class="solution-block">
+                    <div class="solution-title">📝 Решение:</div>
+                    <div class="solution-text">
+                        <p>Площадь всей доски равна <strong>5 · 5 = 25</strong>, а площадь каждой доминошки равна <strong>1 · 2 = 2</strong>.</p>
+                        <p>Поскольку <strong>25 — нечётное число</strong>, целым числом доминошек доску заполнить <strong>не удастся</strong>.</p>
+                        <p style="margin-top: 0.5rem;"><strong>Ответ:</strong> нельзя.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <hr class="divider" />
+
+        <!-- ============================================================
+        ЗАДАЧА №4
+        ============================================================ -->
+        <div class="task-block">
+            <div class="task-number">Задача №4</div>
+            <p class="task-text">
+                <strong>Придумай способ, как, не пересчитывая, можно узнать, кого в классе больше: девочек или мальчиков.</strong>
+            </p>
+
+            <button class="btn-small answer-toggle" onclick="toggleAnswer('answer4')">
+                <i class="fas fa-eye"></i> Показать ответ
+            </button>
+            <div class="answer-hidden" id="answer4">
+                <div class="solution-block">
+                    <div class="solution-title">📝 Решение:</div>
+                    <div class="solution-text">
+                        <p>Разобьём всех девочек и мальчиков на <strong>пары</strong> (например, посадим по парам за парты или попросим мальчика взять девочку за руку).</p>
+                        <p>• Если все разбились на пары → девочек и мальчиков <strong>поровну</strong>.</p>
+                        <p>• Если остались мальчики без пары → их <strong>больше</strong>.</p>
+                        <p>• Если остались девочки без пары → их <strong>больше</strong>.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <hr class="divider" />
+
+        <!-- ============================================================
+        ЗАДАЧА №5
+        ============================================================ -->
+        <div class="task-block">
+            <div class="task-number">Задача №5</div>
+            <p class="task-text">
+                <strong>Можно ли разменять 25 рублей при помощи:</strong>
+                <br />а) <strong>десяти</strong> купюр достоинством в 1, 3 и 5 рублей?
+                <br />б) <strong>семи</strong> купюр достоинством в 1, 3 и 5 рублей?
+            </p>
+
+            <button class="btn-small answer-toggle" onclick="toggleAnswer('answer5')">
+                <i class="fas fa-eye"></i> Показать ответ
+            </button>
+            <div class="answer-hidden" id="answer5">
+                <div class="solution-block">
+                    <div class="solution-title">📝 Решение:</div>
+                    <div class="solution-text">
+                        <p><strong>а)</strong> Сумма <strong>чётного</strong> количества нечётных слагаемых <strong>не может</strong> быть нечётным числом. Поэтому <strong>нельзя</strong>.</p>
+                        <p><strong>б)</strong> Сумма <strong>нечётного</strong> количества нечётных слагаемых <strong>нечётна</strong>, тогда можно привести пример:</p>
+                        <p style="font-size: 1.2rem; text-align: center; font-weight: 700; color: var(--primary);">
+                            5 + 5 + 5 + 5 + 1 + 3 + 1 = 25
+                        </p>
+                        <p style="margin-top: 0.5rem;"><strong>Ответ:</strong> а) нельзя, б) можно.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <hr class="divider" />
+
+        <!-- ============================================================
+        ЗАДАЧА №6
+        ============================================================ -->
+        <div class="task-block">
+            <div class="task-number">Задача №6</div>
+            <p class="task-text">
+                В ряд выписаны числа от <strong>1 до 10</strong>.
+                <br /><strong>Можно ли между ними расставить знаки "+" и "−" так, чтобы получился 0?</strong>
+            </p>
+
+            <button class="btn-small answer-toggle" onclick="toggleAnswer('answer6')">
+                <i class="fas fa-eye"></i> Показать ответ
+            </button>
+            <div class="answer-hidden" id="answer6">
+                <div class="solution-block">
+                    <div class="solution-title">📝 Решение:</div>
+                    <div class="solution-text">
+                        <p><strong>Нельзя</strong>, так как среди чисел от 1 до 10 <strong>нечётное</strong> количество нечётных (их 5).</p>
+                        <p style="margin-top: 0.5rem;"><strong>Ответ:</strong> нельзя.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <hr class="divider" />
+
+        <!-- ============================================================
+        ЗАДАЧА №7
+        ============================================================ -->
+        <div class="task-block">
+            <div class="task-number">Задача №7</div>
+            <p class="task-text">
+                В тетради-черновике Насти было <strong>48 листов</strong>, пронумерованных от 1 до 96. Настя вырвала из тетради <strong>17 листов</strong> (не обязательно идущих подряд) и сложила все 34 числа, которые были написаны на них. У неё получилось <strong>700</strong>.
+                <br /><strong>Докажи, что Настя обсчиталась.</strong>
+            </p>
+            <div class="hint-box">
+                <span class="hint-label">💡 Подсказка:</span> Найди в любой книге номера страниц на одном листе. Чётна их сумма или нечётна? Будет ли чётность суммы такой же у других листов? Почему?
+            </div>
+
+            <button class="btn-small answer-toggle" onclick="toggleAnswer('answer7')">
+                <i class="fas fa-eye"></i> Показать ответ
+            </button>
+            <div class="answer-hidden" id="answer7">
+                <div class="solution-block">
+                    <div class="solution-title">📝 Решение:</div>
+                    <div class="solution-text">
+                        <p>На листе с одной стороны находится <strong>чётное</strong> число, а с другой — <strong>нечётное</strong>. Поэтому сумма номеров на <strong>одном листе нечётна</strong>.</p>
+                        <p>При сложении <strong>17 нечётных чисел</strong> получится <strong>нечётное</strong> число, а у Насти получилось <strong>чётное</strong> (700).</p>
+                        <p style="margin-top: 0.5rem;"><strong>Вывод:</strong> Настя обсчиталась.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <hr class="divider" />
+
+        <!-- ============================================================
+        ЗАДАЧА №8
+        ============================================================ -->
+        <div class="task-block">
+            <div class="task-number">Задача №8</div>
+            <p class="task-text">
+                Однажды летом Костя взял толстую тетрадку и решил посчитать в ней сумму всех натуральных чисел от <strong>1 до 2000</strong>. Костя очень старался и сосчитал сумму правильно.
+                <br /><strong>Каким числом оказалась сумма: чётным или нечётным?</strong>
+            </p>
+            <div class="hint-box">
+                <span class="hint-label">💡 Подсказка 1:</span> Сколько всего чётных слагаемых в сумме? А нечётных?
+            </div>
+            <div class="hint-box" style="margin-top: 0.3rem;">
+                <span class="hint-label">💡 Подсказка 2:</span> Попробуй вычислить сумму, разбивая числа на пары с равной суммой.
+            </div>
+
+            <button class="btn-small answer-toggle" onclick="toggleAnswer('answer8')">
+                <i class="fas fa-eye"></i> Показать ответ
+            </button>
+            <div class="answer-hidden" id="answer8">
+                <div class="solution-block">
+                    <div class="solution-title">📝 Решение (1-й способ):</div>
+                    <div class="solution-text">
+                        <p>Среди чисел от 1 до 2000 <strong>поровну</strong> чётных и нечётных чисел, так как эти числа разбиваются на пары <strong>НЧ, НЧ, …, НЧ</strong>.</p>
+                        <p>Значит, там <strong>2000 : 2 = 1000</strong> нечётных чисел.</p>
+                        <p>Так как в сумме <strong>чётное количество</strong> нечётных чисел, значит, сумма будет <strong>чётной</strong>.</p>
+                    </div>
+                    <div class="solution-title" style="margin-top: 1rem;">📝 Решение (2-й способ):</div>
+                    <div class="solution-text">
+                        <p>Разобьём все числа на пары с суммой <strong>2001</strong>: первое с последним, второе с предпоследним и так далее.</p>
+                        <p>Всего чисел 2000, и получится <strong>2000 : 2 = 1000</strong> пар чисел.</p>
+                        <p>Тогда сумма всех чисел равна <strong>2001 · 1000 = 2001000</strong>, а это <strong>чётное</strong> число.</p>
+                        <p style="margin-top: 0.5rem;"><strong>Ответ:</strong> сумма чётная.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <hr class="divider" />
+
+        <!-- ============================================================
+        ДОМАШНЕЕ ЗАДАНИЕ
+        ============================================================ -->
+        <div class="homework-title">📖 Домашнее задание</div>
+
+        <div class="homework-section">
+
+            <!-- №9 -->
+            <div class="hw-item">
+                <div class="hw-number">Задача №9</div>
+                <div class="hw-text">
+                    Катя и её друзья встали по кругу. Оказалось, что оба соседа каждого ребёнка — <strong>одного пола</strong>. Мальчиков среди Катиных друзей <strong>пять</strong>.
+                    <br /><strong>А сколько девочек?</strong>
+                </div>
+                <button class="btn-small answer-toggle" onclick="toggleAnswer('hw9')">
+                    <i class="fas fa-eye"></i> Показать решение
+                </button>
+                <div class="answer-hidden" id="hw9">
+                    <div class="solution-block">
+                        <div class="solution-title">📝 Решение:</div>
+                        <div class="solution-text">
+                            <p>Чтобы выполнялось условие о соседях одного пола, около каждого мальчика должно стоять две девочки, а около каждой девочки — два мальчика.</p>
+                            <p>Это условие будет выполняться, если дети будут <strong>чередоваться</strong> в кругу: мальчик, девочка, мальчик, девочка и так далее.</p>
+                            <p>Так как мальчиков <strong>пять</strong>, то и девочек (включая саму Катю) должно быть <strong>пять</strong>.</p>
+                            <p style="margin-top: 0.5rem;"><strong>Ответ:</strong> 5 девочек.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- №10 -->
+            <div class="hw-item">
+                <div class="hw-number">Задача №10</div>
+                <div class="hw-text">
+                    Хулиган Матвей порвал школьную стенгазету на <strong>3 части</strong>. После этого он взял один из кусков и тоже порвал на 3 части. Потом опять один из кусков порвал на 3 части и т.д.
+                    <br /><strong>Могло ли у него в итоге получиться 100 частей?</strong>
+                </div>
+                <button class="btn-small answer-toggle" onclick="toggleAnswer('hw10')">
+                    <i class="fas fa-eye"></i> Показать решение
+                </button>
+                <div class="answer-hidden" id="hw10">
+                    <div class="solution-block">
+                        <div class="solution-title">📝 Решение:</div>
+                        <div class="solution-text">
+                            <p>Если любой кусок стенгазеты разорвать на <strong>3 части</strong>, то общее число кусков <strong>увеличится на 2</strong>.</p>
+                            <p>Значит, общее количество частей всегда будет <strong>нечётным</strong>. Но <strong>100 — чётное</strong> число.</p>
+                            <p style="margin-top: 0.5rem;"><strong>Ответ:</strong> нет, не могло.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- №11 -->
+            <div class="hw-item">
+                <div class="hw-number">Задача №11</div>
+                <div class="hw-text">
+                    Парламент состоит из двух равных по численности палат. На совместном заседании присутствовали все представители обеих палат. Из-за важности вопроса при голосовании никто не воздержался. После подведения итогов было объявлено, что решение принято <strong>большинством в 25 голосов</strong>. Оппозиция закричала: <strong>"Это обман!"</strong>
+                    <br /><strong>Как это удалось определить?</strong>
+                </div>
+                <button class="btn-small answer-toggle" onclick="toggleAnswer('hw11')">
+                    <i class="fas fa-eye"></i> Показать решение
+                </button>
+                <div class="answer-hidden" id="hw11">
+                    <div class="solution-block">
+                        <div class="solution-title">📝 Решение:</div>
+                        <div class="solution-text">
+                            <p>Общее количество депутатов в обеих палатах <strong>чётно</strong>, так как весь парламент состоит из двух <strong>одинаковых</strong> по численности палат.</p>
+                            <p>Обозначим количество депутатов, голосовавших <strong>против</strong>, за <strong>x</strong>. Тогда тех, кто голосовал <strong>за</strong>, было <strong>x + 25</strong>.</p>
+                            <p>Общее число депутатов тогда должно быть равно <strong>2x + 25</strong> — <strong>нечётному</strong> числу.</p>
+                            <p>Но мы знаем, что оно <strong>чётно</strong>. Значит, голоса были посчитаны <strong>неправильно</strong>.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- №12 -->
+            <div class="hw-item" style="border-bottom: none; margin-bottom: 0; padding-bottom: 0;">
+                <div class="hw-number">Задача №12*</div>
+                <div class="hw-text">
+                    На лето Кате задали прочитать толстую книгу. Она решила сосчитать сумму всех номеров страниц с <strong>20 по 100</strong>.
+                    <br /><strong>Не вычисляя эту сумму, определи, какое она получила число: чётное или нечётное.</strong>
+                </div>
+                <button class="btn-small answer-toggle" onclick="toggleAnswer('hw12')">
+                    <i class="fas fa-eye"></i> Показать решение
+                </button>
+                <div class="answer-hidden" id="hw12">
+                    <div class="solution-block">
+                        <div class="solution-title">📝 Решение:</div>
+                        <div class="solution-text">
+                            <p>1) <strong>100 – 19 = 81</strong> (стр.) — всего</p>
+                            <p>2) Разобьём числа на пары: <strong>ЧН ЧН ЧН …</strong> Число 100 останется без пары.</p>
+                            <p>3) <strong>80 : 2 = 40</strong> (номеров) — нечётных</p>
+                            <p>4) В сумме <strong>40 нечётных</strong> чисел, поэтому она <strong>чётная</strong>.</p>
+                            <p style="margin-top: 0.5rem;"><strong>Ответ:</strong> чётное.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- ============================================================
+        ДОПОЛНИТЕЛЬНО
+        ============================================================ -->
+        <div style="text-align: center; margin: 2.5rem 0 1.5rem;">
+            <span style="font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 1.8rem; color: var(--primary);">
+                ➕ Дополнительно
+            </span>
+        </div>
+
+        <!-- ============================================================
+        ЗАДАЧА №13
+        ============================================================ -->
+        <div class="task-block">
+            <div class="task-number">Задача №13</div>
+            <p class="task-text">
+                На чудо-дереве росли <strong>30 апельсинов</strong> и <strong>25 бананов</strong>. Каждый день садовник снимал ровно два фрукта. Причём, если он снимал <strong>одинаковые</strong> фрукты, то на дереве появлялся <strong>новый банан</strong>, а если <strong>разные</strong> — <strong>новый апельсин</strong>.
+                <br />В конце концов, на дереве остался <strong>один фрукт</strong>.
+                <br /><strong>Какой: банан или апельсин?</strong>
+            </p>
+
+            <button class="btn-small answer-toggle" onclick="toggleAnswer('answer13')">
+                <i class="fas fa-eye"></i> Показать ответ
+            </button>
+            <div class="answer-hidden" id="answer13">
+                <div class="solution-block">
+                    <div class="solution-title">📝 Решение:</div>
+                    <div class="solution-text">
+                        <p>После того, как садовник снимает два фрукта, возможны три ситуации:</p>
+                        <p>• <strong>Сняли два апельсина</strong> → число апельсинов <strong>уменьшилось на 2</strong>, а число бананов <strong>увеличилось на 1</strong>.</p>
+                        <p>• <strong>Сняли два банана</strong> → число апельсинов <strong>не изменилось</strong>, а число бананов <strong>уменьшилось на 1</strong>.</p>
+                        <p>• <strong>Сняли один апельсин и один банан</strong> → число апельсинов <strong>не изменилось</strong>, а число бананов <strong>уменьшилось на 1</strong>.</p>
+                        <p>Получается, что число апельсинов всегда либо <strong>не изменяется</strong>, либо <strong>уменьшается на 2</strong>.</p>
+                        <p>Изначально апельсинов было <strong>30 — чётное</strong> число. Так как чётность их количества <strong>никогда не меняется</strong>, то остаться <strong>1 апельсин</strong> не может, так как <strong>1 — нечётное</strong> число.</p>
+                        <p style="margin-top: 0.5rem;"><strong>Ответ:</strong> остался <strong>банан</strong>.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================================
+        КНОПКА НАЗАД
+        ============================================================ -->
+        <div style="margin-top: 2rem;">
+            <a href="zanytiya.html" class="btn-secondary">
+                <i class="fas fa-arrow-left"></i> Ко всем занятиям
+            </a>
+        </div>
+
+    </main>
+
+    <!-- ========== ФУТЕР ========== -->
+    <footer class="footer">
+        <p>🏆 Олимпиадный практикум &copy; 2026</p>
+    </footer>
+
+    <!-- ============================================================
+    JAVASCRIPT
+    ============================================================ -->
+    <script>
+        // ============================================================
+        // ФУНКЦИЯ ДЛЯ ПОКАЗА/СКРЫТИЯ ОТВЕТОВ
+        // ============================================================
+        function toggleAnswer(id) {
+            const el = document.getElementById(id);
+            if (el) {
+                el.classList.toggle('show');
+                const btn = el.previousElementSibling;
+                if (btn && btn.classList.contains('answer-toggle')) {
+                    if (el.classList.contains('show')) {
+                        btn.innerHTML = '<i class="fas fa-eye-slash"></i> Скрыть';
+                    } else {
+                        btn.innerHTML = '<i class="fas fa-eye"></i> Показать ответ';
+                    }
+                }
+            }
+        }
+
+        // ============================================================
+        // БУРГЕР-МЕНЮ
+        // ============================================================
+        document.getElementById('burgerBtn').addEventListener('click', () => {
+            document.getElementById('navMenu').classList.toggle('open');
+        });
+
+        document.querySelectorAll('.nav-menu a').forEach(a => {
+            a.addEventListener('click', () => {
+                document.getElementById('navMenu').classList.remove('open');
+            });
+        });
+    </script>
+
+</body>
+</html>
